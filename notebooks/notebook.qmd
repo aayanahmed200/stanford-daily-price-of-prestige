@@ -153,7 +153,7 @@ standardized — using HC3 robust standard errors.
 import statsmodels.api as sm
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
-sample = df.dropna(subset=["MD_EARN_WNE_P10", "NPT4_PRIV", "ADM_RATE",
+sample = roi.dropna(subset=["MD_EARN_WNE_P10", "NPT4_PRIV", "ADM_RATE",
                            "DEP_INC_AVG", "PCTPELL", "SAT_AVG"]).copy()
 sample["log_earn"] = np.log(sample["MD_EARN_WNE_P10"])
 sample["log_adm"] = np.log(sample["ADM_RATE"])
