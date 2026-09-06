@@ -69,8 +69,9 @@ builds on Pages without network access. Refresh them with `make pipeline` (or
 - **Graduates borrow little.** Median debt is **$12,000** (low-income
   graduates: $6,500) versus a national median of $22,300.
 - **Tuition has outpaced inflation — but not unusually so.** Published tuition
-  rose from $24,716 (2000-01) to $65,910 (2024-25) in 2025 dollars, roughly in
-  line with peer elite privates (+48% vs +46%).
+  rose from $24,716 (2000-01) to $65,910 (2024-25) in nominal dollars — a 46%
+  increase in real (2025-dollar) terms, roughly in line with the 48% real
+  growth of peer elite privates over the same period.
 
 ## Tech stack
 

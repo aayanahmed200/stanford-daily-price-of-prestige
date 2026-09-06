@@ -4,7 +4,7 @@
 PYTHON ?= python
 QUARTO ?= quarto
 
-.PHONY: all download validate preprocess analysis visualize pipeline release-data tests lint render render-article render-notebook clean
+.PHONY: all download validate preprocess analysis visualization pipeline release-data tests lint render render-article render-notebook clean
 
 ## Run the entire analysis pipeline (download -> report).
 all: pipeline
