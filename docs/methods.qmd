@@ -95,7 +95,7 @@ may be missing a given variable, so `n` is reported).
 ### Aid-curve uncertainty
 
 `peer_ci_low` / `peer_ci_high` are 95% bootstrap confidence intervals for the
-peer median of net price in each income bracket (10,000 resamples, seeded —
+peer median of net price in each income bracket (5,000 resamples, seeded —
 `bootstrap_median_ci` in `scripts/statistics.py`).
 
 ### Earnings regression
