@@ -13,7 +13,7 @@ assume good faith.
 ## Getting started
 
 ```bash
-git clone https://github.com/aayanahmed20/stanford-daily-price-of-prestige.git
+git clone https://github.com/aayanahmed200/stanford-daily-price-of-prestige.git
 cd stanford-daily-price-of-prestige
 python -m venv .venv && .venv\Scripts\activate   # Windows
 pip install -r requirements.txt

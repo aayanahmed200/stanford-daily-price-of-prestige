@@ -1,6 +1,6 @@
 # Stanford Daily: The Price of Prestige
 
-**[Read the live article](https://aayanahmed20.github.io/stanford-daily-price-of-prestige/)**
+**[Read the live article](https://aayanahmed200.github.io/stanford-daily-price-of-prestige/)**
 
 [![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
@@ -26,8 +26,8 @@ single average.
 
 Published as a full feature article:
 
-**→ [Read the article](https://aayanahmed20.github.io/stanford-daily-price-of-prestige/)**
-(plus the [analysis notebook](https://aayanahmed20.github.io/stanford-daily-price-of-prestige/notebooks/notebook.html))
+**→ [Read the article](https://aayanahmed200.github.io/stanford-daily-price-of-prestige/)**
+(plus the [analysis notebook](https://aayanahmed200.github.io/stanford-daily-price-of-prestige/notebooks/notebook.html))
 
 ## The data
 
