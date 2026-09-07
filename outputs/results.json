@@ -222,10 +222,10 @@
       "firstgen": 8413.0
     },
     "peer_median": {
-      "grad_debt_median": 14000.0,
-      "lowinc": 8250.0,
-      "hiinc": 13837.0,
-      "firstgen": 11155.0
+      "grad_debt_median": 14384.0,
+      "lowinc": 8272.0,
+      "hiinc": 14003.5,
+      "firstgen": 11945.5
     },
     "national_median": {
       "grad_debt_median": 22334.0,
@@ -245,10 +245,10 @@
       "p90": 232800.0
     },
     "peer_median": {
-      "median": 102154.0,
-      "p25": 65665.5,
-      "p75": 182955.5,
-      "p90": 192000.0
+      "median": 101817.0,
+      "p25": 65309.0,
+      "p75": 182769.0,
+      "p90": 189000.0
     },
     "national_median": {
       "median": 52416.0,
