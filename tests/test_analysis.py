@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from scripts.analysis import rankings, trend_stats
+from scripts.analysis import debt_stats, earnings_stats, rankings, trend_stats
 from scripts.config import FOCAL_SCHOOL
 
 
@@ -43,6 +43,43 @@ def test_rankings_dropna():
     out = rankings(peers)
     assert out["MD_EARN_WNE_P10"]["n"] == 4
     assert out["MD_EARN_WNE_P10"]["rank"] is None
+
+
+def _debt_earnings_peer_frame() -> pd.DataFrame:
+    # Stanford is a high outlier on both debt and earnings. If Stanford's own
+    # value leaks into "peer_median", the peer median gets pulled toward
+    # Stanford instead of describing the other schools.
+    rows = [
+        (FOCAL_SCHOOL, 100.0, 100.0),
+        ("Princeton University", 10.0, 10.0),
+        ("Harvard University", 20.0, 20.0),
+        ("Yale University", 30.0, 30.0),
+        ("MIT", 40.0, 40.0),
+    ]
+    frame = pd.DataFrame(rows, columns=["INSTNM", "GRAD_DEBT_MDN", "MD_EARN_WNE_P10"])
+    for col in ["LO_INC_DEBT_MDN", "HI_INC_DEBT_MDN", "FIRSTGEN_DEBT_MDN"]:
+        frame[col] = frame["GRAD_DEBT_MDN"]
+    for col in ["PCT25_EARN_WNE_P10", "PCT75_EARN_WNE_P10", "PCT90_EARN_WNE_P10"]:
+        frame[col] = frame["MD_EARN_WNE_P10"]
+    return frame
+
+
+def test_debt_stats_peer_median_excludes_stanford():
+    peers = _debt_earnings_peer_frame()
+    universe = peers.copy()  # national median isn't under test here
+    out = debt_stats(peers, universe)
+    # Median of the 4 non-Stanford schools (10, 20, 30, 40) is 25, not the
+    # all-5-schools median of 30 that including Stanford's 100 would produce.
+    assert out["peer_median"]["grad_debt_median"] == 25.0
+    assert out["stanford"]["grad_debt_median"] == 100.0
+
+
+def test_earnings_stats_peer_median_excludes_stanford():
+    peers = _debt_earnings_peer_frame()
+    universe = peers.copy()
+    out = earnings_stats(peers, universe)
+    assert out["peer_median"]["median"] == 25.0
+    assert out["stanford"]["median"] == 100.0
 
 
 def test_trend_stats_uses_per_series_windows():

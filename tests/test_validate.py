@@ -66,6 +66,21 @@ def test_validate_institution_negative_low_income_net_price_is_ok():
     assert report["hard_failures"] == []
 
 
+def test_validate_institution_negative_net_price_ok_for_every_income_bracket():
+    """The same "aid can exceed cost" logic applies to all five income
+    brackets (NPT41-45), not just the lowest one -- the real cleaned data has
+    genuine small negative values in NPT42 and NPT43 too, so a floor that
+    only special-cases NPT41 flags legitimate data as implausible (a soft
+    failure below the hard-failure row-count threshold, so it wouldn't show
+    up in hard_failures -- check the specific range check instead)."""
+    for col in ["NPT41_PRIV", "NPT42_PRIV", "NPT43_PRIV", "NPT44_PRIV", "NPT45_PRIV"]:
+        df = _synthetic_institution()
+        df[col] = -2500
+        report = validate_institution(df)
+        range_check = next(c for c in report["checks"] if c["name"] == f"range: {col} plausible")
+        assert range_check["passed"], f"{col} should tolerate a small negative value"
+
+
 def test_validate_cpi_accepts_observation_date_header(tmp_path):
     p = tmp_path / "cpi.csv"
     p.write_text("observation_date,CPIAUCSL\n2025-01-01,320.0\n", encoding="utf-8")

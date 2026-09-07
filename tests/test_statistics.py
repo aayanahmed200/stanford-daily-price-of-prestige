@@ -83,6 +83,44 @@ def test_add_focal_residual_outlier():
     model = add_focal_residual({"terms": []}, df, "y", ["x"])
     assert model["focal_residual"]["actual"] > model["focal_residual"]["fitted"]
     assert model["focal_residual"]["residual"] > 2.0
+    # Plain (non-log) outcome: residual_pct is (actual-fitted)/fitted*100.
+    res = model["focal_residual"]
+    expected_pct = (res["actual"] - res["fitted"]) / res["fitted"] * 100
+    assert res["residual_pct"] == pytest.approx(expected_pct)
+    assert "actual_dollars" not in res
+
+
+def test_add_focal_residual_log_outcome_uses_exp_transform():
+    """When the outcome is log-scale, residual_pct must use the exp-based
+    formula, not the plain (actual-fitted)/fitted formula -- applying the
+    plain formula to log-scale values produces a nonsensical percentage
+    (log-dollar values are ~O(10), so dividing by one gives absurd swings)."""
+    rng = np.random.default_rng(5)
+    n = 150
+    x = rng.normal(size=n)
+    log_y = 11.0 + 0.3 * x + rng.normal(scale=0.05, size=n)
+    df = pd.DataFrame({"UNITID": np.arange(n), "INSTNM": ["Other"] * n, "log_y": log_y, "x": x})
+    df.loc[0, "INSTNM"] = "Stanford University"
+    # Nudge Stanford's log-outcome up by a known amount so the expected
+    # percent uplift is easy to check independently.
+    df.loc[0, "log_y"] = df.loc[0, "log_y"] + np.log(1.5)  # ~50% above its fitted value
+
+    plain_model = add_focal_residual({"terms": []}, df, "log_y", ["x"], log_outcome=False)
+    log_model = add_focal_residual({"terms": []}, df, "log_y", ["x"], log_outcome=True)
+
+    plain_res = plain_model["focal_residual"]
+    log_res = log_model["focal_residual"]
+    # Same underlying fit -> same residual in log units either way.
+    assert log_res["residual"] == pytest.approx(plain_res["residual"])
+    # But residual_pct must differ: the log-aware version follows exp(residual)-1,
+    # not the plain-scale (actual-fitted)/fitted ratio.
+    expected_log_pct = (np.exp(log_res["residual"]) - 1) * 100
+    assert log_res["residual_pct"] == pytest.approx(expected_log_pct)
+    assert log_res["residual_pct"] != pytest.approx(plain_res["residual_pct"])
+    # Back-transformed dollar fields are attached only for the log case.
+    assert log_res["actual_dollars"] == pytest.approx(np.exp(log_res["actual"]))
+    assert log_res["fitted_dollars"] == pytest.approx(np.exp(log_res["fitted"]))
+    assert "actual_dollars" not in plain_res
 
 
 def test_ols_robust_too_few_rows():
