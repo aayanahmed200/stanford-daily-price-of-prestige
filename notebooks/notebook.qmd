@@ -37,8 +37,10 @@ pd.set_option("display.float_format", lambda v: f"{v:,.0f}")
 # 0. The universe
 
 The analysis universe is every four-year, degree-granting institution with a
-predominately bachelor's (or higher) focus, excluding for-profits, with valid
-cost and earnings data.
+predominately bachelor's (or higher) focus, excluding for-profits. It is not
+restricted to schools with valid cost or earnings data -- about 17% of these
+rows are missing `COSTT4_A`, for instance -- so per-metric counts below can be
+smaller than the full universe.
 
 ```{python}
 df = pd.read_csv(PROCESSED_SCORECARD)
@@ -83,9 +85,13 @@ ax.set_title("Net price by family income")
 fig.tight_layout()
 ```
 
+```{python}
+gap = stanford[4] - stanford[0]
+print(f"Gap, richest bracket ($110,001+) minus poorest ($0-30,000): ${gap:,.0f}")
+```
+
 Notice the two lowest brackets: **negative** net price, meaning aid exceeds
-cost. The gap between the poorest and richest brackets — roughly
-`${focal[c for c in buckets][4] - focal[c for c in buckets][0]:,.0f}` — is the
+cost. The gap between the poorest and richest brackets, printed above, is the
 "middle-class squeeze" at the heart of the aid-curve story.
 
 # 3. The peer frame
@@ -107,7 +113,8 @@ Key observations from the table:
 - **Sticker:** rank 10 of 16 — in the expensive half.
 - **Completion:** 6-year rate 91.9% is the *lowest* of the 16, despite being
   far above the national median (53.1%).
-- **Pell share:** 19.2%, at the peer median, versus 33.0% nationally.
+- **Pell share:** 19.2%, close to the peer median (~18%) though a bit above
+  it, versus 33.0% nationally.
 
 # 4. Debt
 
@@ -174,12 +181,12 @@ from scripts.statistics import add_focal_residual
 res = sample[["UNITID", "INSTNM", "log_earn", *predictors]]
 res_model = add_focal_residual(
     {"terms": [], "r_squared": float(model.rsquared)}, res,
-    "log_earn", predictors)
+    "log_earn", predictors, log_outcome=True)
 fr = res_model["focal_residual"]
-print("Predicted median earnings:", f"${np.exp(fr['fitted']):,.0f}")
-print("Actual median earnings:   ", f"${np.exp(fr['actual']):,.0f}")
-print("Residual:                 ", f"{fr['actual'] - fr['fitted']:+.2f} log points")
-print(f"  = {np.exp(fr['actual'] - fr['fitted']) - 1:+.1%} above prediction")
+print("Predicted median earnings:", f"${fr['fitted_dollars']:,.0f}")
+print("Actual median earnings:   ", f"${fr['actual_dollars']:,.0f}")
+print("Residual:                 ", f"{fr['residual']:+.2f} log points")
+print(f"  = {fr['residual_pct']:+.1f}% above prediction")
 ```
 
 That ~47% residual — earnings above what the school's inputs predict — is the
