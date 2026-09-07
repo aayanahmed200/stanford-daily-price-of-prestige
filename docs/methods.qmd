@@ -23,9 +23,13 @@ only (not pulled into the pipeline), are on the [Sources](sources.qmd) page.
 - **Historical archive**
   (`College_Scorecard_Raw_Data_06102026.zip`): institution-level files for
   academic years 1996-97 through 2025-26. Used for the long-run tuition trend.
-  From this ~470 MB archive we extract only the rows needed for the trend
-  (`data/raw/trend_focus.csv`): the focal school, its peers, and a national
-  aggregate per year.
+  From this ~470 MB archive we extract a handful of columns
+  (`scripts.download.TREND_COLUMNS`) for every institution in each configured
+  year file, unfiltered, into `data/raw/trend_focus.csv` -- extracting a
+  narrow column set is what keeps this step cheap, not restricting which
+  institutions are kept. Splitting those rows into the focal school, its
+  peers, and a national aggregate per year happens afterward, in
+  `scripts.preprocess.build_cost_trend`.
 
 ### CPI-U (FRED / Bureau of Labor Statistics)
 
@@ -57,12 +61,16 @@ focal school's story metrics populated.
 
 | Sample | Definition | Size |
 | --- | --- | --- |
-| Universe | `HIGHDEG >= 3` (4+ years), `CONTROL in {1,2}` (public/private non-profit), valid cost data | 2,379 |
+| Universe | `HIGHDEG >= 3` (4+ years), `CONTROL in {1,2}` (public/private non-profit) | 2,379 |
 | Peer frame | Stanford + 15 elite private universities (Ivy League, MIT, Caltech, Chicago, Northwestern, JHU, Rice, CMU) | 16 |
-| ROI / earnings sample | Universe schools with valid net price, selectivity, and median earnings, and `COUNT_WNE_P10 >= 30` | 1,079 |
+| ROI sample | Universe schools with valid net price and median earnings, and `COUNT_WNE_P10 >= 30` | 1,079 |
+| ROI regression (fitted) | ROI sample schools that *also* have valid selectivity (`ADM_RATE`, `SAT_AVG`) and family-income (`DEP_INC_AVG`, `PCTPELL`) data, since the model uses all five predictors at once | 530 |
 
 The `MIN_COUNT_WNE_P10 = 30` floor protects the earnings analysis from schools
-whose Scorecard earnings records cover a handful of matched graduates.
+whose Scorecard earnings records cover a handful of matched graduates. Note
+that "Universe" isn't filtered on cost data being present -- about 17% of
+universe rows are missing `COSTT4_A`, which is why sticker-cost figures and
+charts drop to a smaller n than the full 2,379.
 
 ## Variables of interest
 
