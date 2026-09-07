@@ -186,11 +186,22 @@ def add_focal_residual(
     outcome: str,
     predictors: list[str],
     focal: str = "Stanford University",
+    log_outcome: bool = False,
 ) -> dict[str, Any]:
     """Attach the out-of-model residual for the focal school.
 
     ``df`` must contain ``UNITID`` plus the model variables; the focal school
     is identified by exact ``INSTNM`` match.
+
+    ``residual_pct`` expresses the residual as a percent of the fitted value.
+    When ``outcome`` is on a natural (dollar-like) scale, that is simply
+    ``(actual - fitted) / fitted * 100``. When ``log_outcome=True`` (``outcome``
+    is a log-transformed variable, e.g. ``log(earnings)``), ``actual`` and
+    ``fitted`` are both in log units, so the percent difference on the
+    original scale is instead ``(exp(actual - fitted) - 1) * 100`` -- the
+    plain-scale formula applied to log values would silently compute a
+    meaningless number. ``actual_dollars``/``fitted_dollars`` (the
+    back-transformed, natural-scale values) are also attached in that case.
     """
     import statsmodels.api as sm
 
@@ -207,13 +218,17 @@ def add_focal_residual(
         return model
     fitted = float(np.asarray(fit.predict(design))[mask][0])
     actual = float(y[mask][0])
+    residual = actual - fitted
     model["focal_residual"] = {
         "school": focal,
         "actual": actual,
         "fitted": fitted,
-        "residual": actual - fitted,
-        "residual_pct": (actual - fitted) / fitted * 100,
+        "residual": residual,
+        "residual_pct": ((np.exp(residual) - 1) if log_outcome else (residual / fitted)) * 100,
     }
+    if log_outcome:
+        model["focal_residual"]["actual_dollars"] = float(np.exp(actual))
+        model["focal_residual"]["fitted_dollars"] = float(np.exp(fitted))
     return model
 
 

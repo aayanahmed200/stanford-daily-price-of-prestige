@@ -182,6 +182,11 @@ def aid_curve_stats(aid: pd.DataFrame, peers: pd.DataFrame) -> dict:
 def debt_stats(peers: pd.DataFrame, universe: pd.DataFrame) -> dict:
     """Debt by income group, Stanford vs peer median vs national."""
     row = peers[peers["INSTNM"] == config.FOCAL_SCHOOL].iloc[0]
+    # Peer median must exclude Stanford itself -- it's the baseline Stanford
+    # is being compared against, not a group Stanford is a member of. (Same
+    # convention as hypothesis_tests()'s "others" and aid_curve_stats()'s
+    # "peer_aid".)
+    others = peers[peers["INSTNM"] != config.FOCAL_SCHOOL]
     result = {
         "stanford": {
             "grad_debt_median": float(row["GRAD_DEBT_MDN"]),
@@ -190,10 +195,10 @@ def debt_stats(peers: pd.DataFrame, universe: pd.DataFrame) -> dict:
             "firstgen": float(row["FIRSTGEN_DEBT_MDN"]),
         },
         "peer_median": {
-            "grad_debt_median": float(peers["GRAD_DEBT_MDN"].median()),
-            "lowinc": float(peers["LO_INC_DEBT_MDN"].median()),
-            "hiinc": float(peers["HI_INC_DEBT_MDN"].median()),
-            "firstgen": float(peers["FIRSTGEN_DEBT_MDN"].median()),
+            "grad_debt_median": float(others["GRAD_DEBT_MDN"].median()),
+            "lowinc": float(others["LO_INC_DEBT_MDN"].median()),
+            "hiinc": float(others["HI_INC_DEBT_MDN"].median()),
+            "firstgen": float(others["FIRSTGEN_DEBT_MDN"].median()),
         },
         "national_median": {
             "grad_debt_median": float(universe["GRAD_DEBT_MDN"].median()),
@@ -212,6 +217,8 @@ def debt_stats(peers: pd.DataFrame, universe: pd.DataFrame) -> dict:
 def earnings_stats(peers: pd.DataFrame, universe: pd.DataFrame) -> dict:
     """Earnings percentiles, Stanford vs peer median vs national."""
     row = peers[peers["INSTNM"] == config.FOCAL_SCHOOL].iloc[0]
+    # Exclude Stanford from its own comparison baseline (see debt_stats).
+    others = peers[peers["INSTNM"] != config.FOCAL_SCHOOL]
     return {
         "stanford": {
             "median": float(row["MD_EARN_WNE_P10"]),
@@ -220,10 +227,10 @@ def earnings_stats(peers: pd.DataFrame, universe: pd.DataFrame) -> dict:
             "p90": float(row["PCT90_EARN_WNE_P10"]),
         },
         "peer_median": {
-            "median": float(peers["MD_EARN_WNE_P10"].median()),
-            "p25": float(peers["PCT25_EARN_WNE_P10"].median()),
-            "p75": float(peers["PCT75_EARN_WNE_P10"].median()),
-            "p90": float(peers["PCT90_EARN_WNE_P10"].median()),
+            "median": float(others["MD_EARN_WNE_P10"].median()),
+            "p25": float(others["PCT25_EARN_WNE_P10"].median()),
+            "p75": float(others["PCT75_EARN_WNE_P10"].median()),
+            "p90": float(others["PCT90_EARN_WNE_P10"].median()),
         },
         "national_median": {
             "median": float(universe["MD_EARN_WNE_P10"].median()),
@@ -297,14 +304,12 @@ def roi_regression(roi: pd.DataFrame) -> dict:
         predictors=["real_NPT4_PRIV", "SAT_AVG", "log_adm", "DEP_INC_AVG", "PCTPELL"],
     )
     model = add_focal_residual(
-        model, d, "log_earn", ["real_NPT4_PRIV", "SAT_AVG", "log_adm", "DEP_INC_AVG", "PCTPELL"]
+        model,
+        d,
+        "log_earn",
+        ["real_NPT4_PRIV", "SAT_AVG", "log_adm", "DEP_INC_AVG", "PCTPELL"],
+        log_outcome=True,
     )
-    # Exponentiate residual into percent terms for the article.
-    if model.get("focal_residual"):
-        res = model["focal_residual"]
-        model["focal_residual"]["residual_pct"] = (np.exp(res["residual"]) - 1) * 100
-        model["focal_residual"]["actual_dollars"] = np.exp(res["actual"])
-        model["focal_residual"]["fitted_dollars"] = np.exp(res["fitted"])
     return model
 
 

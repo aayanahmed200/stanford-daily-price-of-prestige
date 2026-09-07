@@ -93,9 +93,13 @@ def validate_institution(df: pd.DataFrame) -> dict:
     for col in config.DOLLAR_COLUMNS | config.INTEGER_COLUMNS:
         num = to_numeric(df[col])
         if col in config.DOLLAR_COLUMNS:
-            # Net prices for low-income students may legitimately be negative
-            # (grants exceeding cost); reject only implausibly large negatives.
-            lower = -50000 if col.startswith("NPT41") else 0
+            # Net price by income bracket (NPT41..45_PRIV) may legitimately be
+            # negative -- grants exceeding cost isn't unique to the lowest
+            # bracket, it just gets rarer as income rises (confirmed in the
+            # cleaned data: NPT41/42/43 all have real negative rows; NPT44/45
+            # don't, but the same mechanism could produce one). Reject only
+            # implausibly large negatives for any bracket column.
+            lower = -50000 if col in config.INCOME_BUCKETS else 0
             bad = num[(num < lower)].dropna()
         else:
             bad = num[(num < 0)].dropna()

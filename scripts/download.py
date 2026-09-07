@@ -9,7 +9,10 @@ Fetch, from public sources:
 
 1. The College Scorecard "most recent cohorts" institution file (zip).
 2. The full College Scorecard raw-data archive (zip), used for the long-run
-   cost trend. Only the rows for the focal schools are extracted.
+   cost trend. Every institution's row is extracted (unfiltered) for each
+   configured year file into ``data/raw/trend_focus.csv``; narrowing that
+   down to the focal school, its peers, and a national aggregate happens
+   later, in ``scripts.preprocess.build_cost_trend``.
 3. The CPI-U consumer price index (FRED/St. Louis Fed) for inflation
    adjustment.
 
@@ -106,12 +109,15 @@ def download_raw_archive(force: bool = False) -> Path:
 
 
 def extract_trend_subset(force: bool = False) -> Path:
-    """Extract per-school, per-year trend rows from the raw archive.
+    """Extract per-institution, per-year trend rows from the raw archive.
 
-    Reading every year file in the archive for *every* institution would be
-    wasteful; instead we stream the archive once and keep only rows for the
-    focal schools plus (a) the national median computation requires all rows,
-    so we also keep a lightweight national aggregate per year.
+    This writes every institution's row (``TREND_COLUMNS`` only) for each
+    configured year file to ``data/raw/trend_focus.csv`` -- deliberately
+    unfiltered. Splitting those rows into the focal school, peer set, and a
+    national aggregate requires knowing ``CONTROL`` and matching names
+    against the peer list, which is cheaper to do once downstream (see
+    ``scripts.preprocess.build_cost_trend``) than to duplicate here while
+    streaming the archive.
     """
     dest = config.RAW_DIR / "trend_focus.csv"
     if dest.exists() and not force:
