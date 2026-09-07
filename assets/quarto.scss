@@ -135,10 +135,6 @@ figcaption,
   line-height: 1.5;
 }
 
-figcaption::before {
-  content: "";
-}
-
 // Interactive (Plotly) figures get the same card treatment as static ones.
 .cell-output-display iframe,
 .cell-output-display > div > div {
