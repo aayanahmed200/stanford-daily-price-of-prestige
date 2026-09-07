@@ -1,5 +1,5 @@
 # The Price of Prestige - reproducible pipeline
-# Targets mirror the pipeline steps; see docs/methods.md for details.
+# Targets mirror the pipeline steps; see docs/methods.qmd for details.
 
 PYTHON ?= python
 QUARTO ?= quarto

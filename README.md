@@ -40,10 +40,13 @@ Published as a full feature article:
 Full citations: [`docs/sources.qmd`](docs/sources.qmd).
 
 The analysis universe is 2,379 four-year, degree-granting non-profit schools.
-Stanford is compared against 16 elite private peers; the earnings/ROI
-regression uses 1,079 schools with matched earnings and cost data. Every
-statistic in the article is read from `outputs/results.json`, so prose cannot
-drift out of sync with the data.
+Stanford is compared against 15 elite private peers (a 16-school peer frame
+including Stanford itself). 1,079 schools have the net price and earnings
+data needed for the ROI scatterplot; the earnings regression itself needs a
+complete record across every predictor (net price, selectivity, family
+income), which narrows that to 530 schools. Every statistic in the article is
+read from `outputs/results.json`, so prose cannot drift out of sync with the
+data.
 
 The raw downloads (~0.5 GB) are not committed: `scripts.download` fetches them
 from the U.S. Department of Education and FRED, and the Scorecard server blocks

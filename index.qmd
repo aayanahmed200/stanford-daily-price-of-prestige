@@ -117,7 +117,7 @@ From `{python} SF['start_year']`-01 to `{python} SF['end_year']`-25, tuition ros
 `{python} usd(SF['start_nominal'])` to `{python} usd(SF['end_nominal'])` — up
 `{python} pct(SF['nominal_growth_pct']/100, 0)` in nominal terms and
 `{python} pct(SF['real_growth_pct']/100, 0)` after inflation. That is fast. It is also,
-tellingly, almost exactly what Stanford's peers charge: the 16 peer institutions
+tellingly, almost exactly what Stanford's peers charge: its 15 peer institutions
 saw real tuition growth of `{python} pct(PEER['real_growth_pct']/100, 0)` over the same
 period.
 
@@ -133,7 +133,7 @@ publics, is a rounding error next to it.
 
 High price tags are easier to justify when they buy completion. Stanford
 graduates **`{python} pct(F['grad_rate_150'])`** of its entering class within six years
-— a number most colleges would kill for, yet the *lowest* among its 16 peer
+— a number most colleges would kill for, yet the *lowest* among its 15 peer
 institutions, where six-year rates routinely clear 94%.
 
 Debt is where Stanford's economics get friendlier. Among borrowers, median
@@ -166,18 +166,22 @@ ceiling.
 
 # How much of that is the school — and how much the students?
 
-A naive reading of the earnings chart is that Stanford *produces* six-figure
-careers. A fairer question is whether Stanford is selecting for them. We can
-test that with a regression over all 1,079 four-year colleges in the ROI
-sample: how much do graduates earn, *given* a school's net price, selectivity,
-and the average family income of its students?
-
 ```{python}
 #| echo: false
 R = RESULTS["regression"]
 FR = R["focal_residual"]
 COEFS = {t["name"]: t for t in R["terms"]}
 ```
+
+A naive reading of the earnings chart is that Stanford *produces* six-figure
+careers. A fairer question is whether Stanford is selecting for them. We can
+test that with a regression over the `{python} f"{R['n']:,}"` four-year
+colleges in the ROI sample that have complete records for every predictor in
+the model (net price, selectivity, and family income) — a narrower group than
+the 1,079-school ROI sample used elsewhere, since this model needs all five
+variables at once, not just net price and earnings: how much do graduates
+earn, *given* a school's net price, selectivity, and the average family
+income of its students?
 
 The model explains about `{python} pct(R['r_squared'], 0)` of the variation in median
 earnings across schools. Three predictors dominate:
@@ -226,9 +230,12 @@ the version that makes the rest of the system's failures most visible.
   2025-26). CPI-U inflation adjustment via FRED (CPIAUCSL); all dollars
   expressed in 2025 dollars.
 - **Universe:** 2,379 four-year, degree-granting public and private non-profit
-  institutions with valid cost data. **Peer frame:** 16 elite private
-  universities. **Earnings regression:** 1,079 schools with matched cost,
-  selectivity, and earnings records.
+  institutions (not all of them report cost data; see [Methods](docs/methods.qmd)).
+  **Peer frame:** Stanford plus 15 elite private peer universities (16 schools
+  total). **Earnings regression:** `{python} f"{R['n']:,}"` schools with
+  matched net price, selectivity, family income, and earnings records — a
+  narrower group than the 1,079-school ROI sample used for the scatterplot
+  above, which only requires net price and earnings.
 - Net prices are averages for dependent students in each income bracket.
   Earnings are for the cohort ten years after first enrollment (includes
   graduates and non-graduates).

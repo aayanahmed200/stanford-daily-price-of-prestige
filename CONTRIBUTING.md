@@ -54,6 +54,10 @@ pre-commit install
 
 ## Tests
 
-Tests live in `tests/`. Unit tests must not require network access. Anything
-that touches the ~0.5 GB downloads belongs in `tests/integration/` and should
-be marked with `@pytest.mark.needs_network` (it is not run by default CI).
+Tests live in `tests/` and must not require network access -- every existing
+test runs against synthetic or already-processed data. There is no
+`tests/integration/` directory yet. If you add a test that needs the ~0.5 GB
+downloads, keep it out of the default suite: give it a clearly-named module
+(e.g. `tests/integration/`) and a registered pytest marker (e.g.
+`needs_network`, added to `[tool.pytest.ini_options]` in `pyproject.toml`) so
+`pytest -m "not needs_network"` (or a similar default) can skip it in CI.
