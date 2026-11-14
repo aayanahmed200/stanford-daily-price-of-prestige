@@ -7,6 +7,7 @@
 [![Plotly](https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/)
 [![Sass](https://img.shields.io/badge/sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/)
 [![GitHub Actions](https://img.shields.io/badge/github%20actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/features/actions)
+**Repository:** [stanford-daily-price-of-prestige](https://github.com/aayanahmed200/stanford-daily-price-of-prestige)
 
 **What a Stanford degree is actually worth** — a data-journalism investigation
 into the price, aid, and earnings that come with a Stanford education, built on
@@ -15,7 +16,7 @@ and inflation-adjusted using the BLS Consumer Price Index.
 
 ![Net price by family income: Stanford vs. its peers](./figures/fig_aid_curve.png)
 
-## Why this exists
+## Overview
 
 Stanford's headline sticker price gets quoted on its own all the time, without
 the context of what students actually end up paying, what they earn afterward,
@@ -29,7 +30,7 @@ Published as a full feature article:
 **→ [Read the article](https://aayanahmed200.github.io/stanford-daily-price-of-prestige/)**
 (plus the [analysis notebook](https://aayanahmed200.github.io/stanford-daily-price-of-prestige/notebooks/notebook.html))
 
-## The data
+## Data & methodology
 
 | Source | What | Used for |
 | --- | --- | --- |
@@ -55,7 +56,7 @@ artifacts (`data/processed/`, `outputs/`, `figures/`) are committed so the site
 builds on Pages without network access. Refresh them with `make pipeline` (or
 `make release-data`) and commit the changes.
 
-## Key findings
+## Findings
 
 - **Expensive on paper, affordable in practice.** Stanford's sticker price is
   $87,833 — 2.8x the national median of $31,112. But the *average net price*
@@ -76,14 +77,14 @@ builds on Pages without network access. Refresh them with `make pipeline` (or
   increase in real (2025-dollar) terms, roughly in line with the 48% real
   growth of peer elite privates over the same period.
 
-## Tech stack
+## Technology
 
 - Python 3.12, [Quarto](https://quarto.org/) 1.10 (article, notebook, and site rendering)
 - `pandas` / statistical analysis in `scripts/analysis.py`
 - `pytest` for tests, `ruff` for lint, `pre-commit` hooks
 - GitHub Actions CI, GitHub Pages for the published site
 
-## Project structure
+## Repository structure
 
 ```
 index.qmd                  Feature article (Quarto; the site homepage)
@@ -101,7 +102,7 @@ figures/                   Generated charts
 outputs/                   results.json + tables (the article's source of truth)
 ```
 
-## Setup
+## Run locally
 
 ```bash
 pip install -r requirements.txt
