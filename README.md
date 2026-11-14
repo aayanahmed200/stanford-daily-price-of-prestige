@@ -13,7 +13,7 @@ The project compares student costs after financial aid with published tuition, t
 ## Highlights
 
 - Reports a published sticker price of $87,833 and an average net price of $13,807.
-- Compares net price across family-income groups.
+- Average net price varies by family income, including a reported negative net price for families earning under $30,000 and $53,882 for families earning $110,001 or more.
 - Reports median earnings of $124,080 ten years after entry and median debt of $12,000.
 - Includes a regression analysis of earnings against price, selectivity, Pell share, and family income.
 
