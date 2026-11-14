@@ -8,14 +8,14 @@ A data-journalism investigation into Stanford tuition, financial aid, student co
 
 ## Overview
 
-This project compares what students pay after financial aid with published tuition, then examines earnings and debt after graduation. It uses U.S. Department of Education data, inflation adjustments from the Bureau of Labor Statistics, and peer-school comparisons.
+The project compares student costs after financial aid with published tuition, then examines earnings and debt after graduation. It uses U.S. Department of Education data, inflation adjustments from the Bureau of Labor Statistics, and peer-school comparisons.
 
 ## Highlights
 
-- The analysis reports a published sticker price of $87,833 and an average net price of $13,807.
-- Average net price varies by family income, including a reported negative net price for families earning under $30,000 and $53,882 for families earning $110,001 or more.
-- Median earnings ten years after entry are reported as $124,080; median debt is $12,000.
-- The regression model estimates earnings about 47% above its prediction after controlling for price, selectivity, Pell share, and family income.
+- Reports a published sticker price of $87,833 and an average net price of $13,807.
+- Compares net price across family-income groups.
+- Reports median earnings of $124,080 ten years after entry and median debt of $12,000.
+- Includes a regression analysis of earnings against price, selectivity, Pell share, and family income.
 
 ## Technology
 
@@ -31,7 +31,10 @@ make render
 
 Raw downloads come from the Department of Education and FRED. Processed data, figures, and result artifacts are included so rendering and tests do not require repeating the full download step.
 
+## Notes and limitations
+
+The findings depend on the source datasets, reporting periods, definitions, and analysis choices used in this project. The regression is observational and should not be interpreted as evidence that the factors examined cause differences in earnings. Source data remains subject to the terms of its providers.
 
 ## License
 
-MIT — see `LICENSE`. Source data remains subject to the terms of the U.S. Department of Education, BLS, and other cited providers.
+MIT — see `LICENSE`.
