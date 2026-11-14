@@ -31,9 +31,6 @@ make render
 
 Raw downloads come from the Department of Education and FRED. Processed data, figures, and result artifacts are included so rendering and tests do not require repeating the full download step.
 
-## Notes and limitations
-
-The analysis covers 2,379 four-year non-profit institutions. The earnings model uses institutions with complete predictor data. Results describe available cohorts and variables; the regression is observational and does not establish that attending a particular institution causes a specific earnings outcome. Full citations and calculations are in `docs/sources.qmd` and the Quarto article.
 
 ## License
 
