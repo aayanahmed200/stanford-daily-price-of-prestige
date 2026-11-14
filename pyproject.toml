@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stanford-daily-price-of-prestige"
+version = "0.1.0"
+description = "The Price of Prestige: what a Stanford degree is actually worth (College Scorecard data analysis)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Stanford Daily Tech Bootcamp" }]
+keywords = ["education", "data-journalism", "college-scorecard", "roi"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Sociology :: Education",
+]
+urls = { homepage = "https://aayanahmed200.github.io/stanford-daily-price-of-prestige/" }
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8",
+    "ruff>=0.11",
+    "pre-commit>=3",
+]
+
+[project.scripts]
+price-prestige-download = "scripts.download:main"
+price-prestige-validate = "scripts.validate:main"
+price-prestige-preprocess = "scripts.preprocess:main"
+price-prestige-analysis = "scripts.analysis:main"
+price-prestige-visualize = "scripts.visualization:main"
+
+[tool.setuptools]
+packages = ["scripts"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::FutureWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["B008"]

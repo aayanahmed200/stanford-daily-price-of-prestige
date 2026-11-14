@@ -1,0 +1,501 @@
+{
+  "meta": {
+    "project": "The Price of Prestige: What a Stanford Degree Is Actually Worth",
+    "data": "U.S. Department of Education, College Scorecard",
+    "release": "Most Recent Cohorts, June 2026",
+    "peer_set": [
+      "Stanford University",
+      "Harvard University",
+      "Yale University",
+      "Princeton University",
+      "Massachusetts Institute of Technology",
+      "California Institute of Technology",
+      "Columbia University in the City of New York",
+      "University of Pennsylvania",
+      "Brown University",
+      "Dartmouth College",
+      "Cornell University",
+      "University of Chicago",
+      "Northwestern University",
+      "Johns Hopkins University",
+      "Rice University",
+      "Carnegie Mellon University"
+    ],
+    "seed": 20260701,
+    "cpi_reference_year": 2025
+  },
+  "focal": {
+    "unitid": 243744,
+    "sticker_cost": 87833.0,
+    "tuition_fees": 65910.0,
+    "net_price_avg": 13807.0,
+    "grad_rate_150": 0.9192,
+    "retention": 0.9818,
+    "pell_share": 0.1916,
+    "firstgen_share": 0.3033854167,
+    "dep_income_avg": 84509.973316,
+    "adm_rate": 0.0361,
+    "sat_avg": 1553.0,
+    "ugds": 7554.0,
+    "repay_3yr": 0.8992,
+    "grad_debt_median": 12000.0,
+    "lowinc_debt_median": 6500.0,
+    "hiinc_debt_median": 12000.0,
+    "firstgen_debt_median": 8413.0,
+    "earn_median_p10": 124080.0,
+    "earn_p25_p10": 73321.0,
+    "earn_p75_p10": 219740.0,
+    "earn_p90_p10": 232800.0,
+    "earn_count_p10": 796,
+    "net_price_by_income": {
+      "$0\u201330,000": -2536.0,
+      "$30,001\u201348,000": -193.0,
+      "$48,001\u201375,000": 3212.0,
+      "$75,001\u2013110,000": 11092.0,
+      "$110,001+": 53882.0
+    },
+    "real_sticker_cost_2025": 90146.78237259432,
+    "real_net_price_2025": 14170.717432154312,
+    "national": {
+      "median_cost": 31112.5,
+      "median_net_price": 22347.0,
+      "median_earnings_p10": 52416.0,
+      "median_grad_rate": 0.5313,
+      "median_grad_debt": 22334.0,
+      "median_pell": 0.3297
+    },
+    "multiples": {
+      "cost_vs_national": 2.8230775411811972,
+      "net_price_vs_national": 0.6178457958562671,
+      "earnings_vs_national": 2.3672161172161172
+    }
+  },
+  "rankings": {
+    "NPT4_PRIV": {
+      "label": "net price (lower is better)",
+      "rank": 3,
+      "n": 16,
+      "value": 13807.0,
+      "top": [
+        "Princeton University",
+        "Rice University",
+        "Stanford University"
+      ],
+      "best": "Princeton University",
+      "worst": "Carnegie Mellon University"
+    },
+    "COSTT4_A": {
+      "label": "sticker cost (lower is better)",
+      "rank": 10,
+      "n": 16,
+      "value": 87833.0,
+      "top": [
+        "Rice University",
+        "Massachusetts Institute of Technology",
+        "Carnegie Mellon University"
+      ],
+      "best": "Rice University",
+      "worst": "Northwestern University"
+    },
+    "C150_4": {
+      "label": "graduation rate (higher is better)",
+      "rank": 16,
+      "n": 16,
+      "value": 0.9192,
+      "top": [
+        "Princeton University",
+        "Harvard University",
+        "University of Pennsylvania"
+      ],
+      "best": "Princeton University",
+      "worst": "Stanford University"
+    },
+    "PCTPELL": {
+      "label": "Pell share (higher is better)",
+      "rank": 6,
+      "n": 16,
+      "value": 0.1916,
+      "top": [
+        "Columbia University in the City of New York",
+        "Yale University",
+        "Johns Hopkins University"
+      ],
+      "best": "Columbia University in the City of New York",
+      "worst": "Brown University"
+    },
+    "GRAD_DEBT_MDN": {
+      "label": "median grad debt (lower is better)",
+      "rank": 5,
+      "n": 15,
+      "value": 12000.0,
+      "top": [
+        "Johns Hopkins University",
+        "Princeton University",
+        "Rice University"
+      ],
+      "best": "Johns Hopkins University",
+      "worst": "Carnegie Mellon University"
+    },
+    "MD_EARN_WNE_P10": {
+      "label": "median earnings (higher is better)",
+      "rank": 3,
+      "n": 16,
+      "value": 124080.0,
+      "top": [
+        "Massachusetts Institute of Technology",
+        "California Institute of Technology",
+        "Stanford University"
+      ],
+      "best": "Massachusetts Institute of Technology",
+      "worst": "Johns Hopkins University"
+    },
+    "PCT90_EARN_WNE_P10": {
+      "label": "P90 earnings (higher is better)",
+      "rank": 4,
+      "n": 16,
+      "value": 232800.0,
+      "top": [
+        "Harvard University",
+        "Massachusetts Institute of Technology",
+        "University of Pennsylvania"
+      ],
+      "best": "Harvard University",
+      "worst": "Johns Hopkins University"
+    }
+  },
+  "aid_curve": {
+    "buckets": [
+      "$0\u201330,000",
+      "$30,001\u201348,000",
+      "$48,001\u201375,000",
+      "$75,001\u2013110,000",
+      "$110,001+"
+    ],
+    "stanford": {
+      "$0\u201330,000": -2536.0,
+      "$30,001\u201348,000": -193.0,
+      "$48,001\u201375,000": 3212.0,
+      "$75,001\u2013110,000": 11092.0,
+      "$110,001+": 53882.0
+    },
+    "peer_median": {
+      "$0\u201330,000": 428.0,
+      "$30,001\u201348,000": 914.0,
+      "$48,001\u201375,000": 4179.0,
+      "$75,001\u2013110,000": 14311.0,
+      "$110,001+": 48777.0
+    },
+    "peer_ci_low": {
+      "$0\u201330,000": -1264.0,
+      "$30,001\u201348,000": 352.0,
+      "$48,001\u201375,000": 2091.0,
+      "$75,001\u2013110,000": 11782.0,
+      "$110,001+": 45951.0
+    },
+    "peer_ci_high": {
+      "$0\u201330,000": 5827.0,
+      "$30,001\u201348,000": 2991.0,
+      "$48,001\u201375,000": 7898.0,
+      "$75,001\u2013110,000": 17755.0,
+      "$110,001+": 52036.0
+    },
+    "n_peers": {
+      "$0\u201330,000": 15,
+      "$30,001\u201348,000": 15,
+      "$48,001\u201375,000": 15,
+      "$75,001\u2013110,000": 15,
+      "$110,001+": 15
+    },
+    "middle_class_squeeze": {
+      "stanford_p44": 11092.0,
+      "stanford_p41": -2536.0,
+      "gap": 13628.0,
+      "peer_median_p44": 14311.0,
+      "peer_median_p41": 428.0
+    }
+  },
+  "debt": {
+    "stanford": {
+      "grad_debt_median": 12000.0,
+      "lowinc": 6500.0,
+      "hiinc": 12000.0,
+      "firstgen": 8413.0
+    },
+    "peer_median": {
+      "grad_debt_median": 14384.0,
+      "lowinc": 8272.0,
+      "hiinc": 14003.5,
+      "firstgen": 11945.5
+    },
+    "national_median": {
+      "grad_debt_median": 22334.0,
+      "lowinc": 14855.0,
+      "hiinc": 15108.0,
+      "firstgen": 15150.0
+    },
+    "stanford_vs_national": {
+      "grad_debt_ratio": 0.5372973941076385
+    }
+  },
+  "earnings": {
+    "stanford": {
+      "median": 124080.0,
+      "p25": 73321.0,
+      "p75": 219740.0,
+      "p90": 232800.0
+    },
+    "peer_median": {
+      "median": 101817.0,
+      "p25": 65309.0,
+      "p75": 182769.0,
+      "p90": 189000.0
+    },
+    "national_median": {
+      "median": 52416.0,
+      "p25": 33402.0,
+      "p75": 76006.0,
+      "p90": 77850.0
+    }
+  },
+  "tests": {
+    "net_price_avg": {
+      "stanford": 13807.0,
+      "peer_median": 21590.0,
+      "peer_percentile": 13.333333333333334,
+      "n_peers": 15,
+      "cohens_d": {
+        "cohens_d": -1.0962587421944388,
+        "n1": 1,
+        "n2": 15,
+        "pooled_sd": 7290.492982220718
+      }
+    },
+    "grad_debt": {
+      "stanford": 12000.0,
+      "peer_median": 14384.0,
+      "peer_percentile": 28.57142857142857,
+      "n_peers": 14,
+      "cohens_d": {
+        "cohens_d": -0.7299625085929843,
+        "n1": 1,
+        "n2": 14,
+        "pooled_sd": 3640.695785450606
+      }
+    },
+    "earn_median": {
+      "stanford": 124080.0,
+      "peer_median": 101817.0,
+      "peer_percentile": 86.66666666666667,
+      "n_peers": 15,
+      "cohens_d": {
+        "cohens_d": 1.266407002533331,
+        "n1": 1,
+        "n2": 15,
+        "pooled_sd": 15510.390125270713
+      }
+    },
+    "pell_share": {
+      "stanford": 0.1916,
+      "peer_median": 0.1799,
+      "peer_percentile": 66.66666666666666,
+      "n_peers": 15,
+      "cohens_d": {
+        "cohens_d": 0.6081182070026052,
+        "n1": 1,
+        "n2": 15,
+        "pooled_sd": 0.023920787930962792
+      }
+    },
+    "peers_vs_national_earn_median": {
+      "peer_median": 101817.0,
+      "national_median": 52416.0,
+      "mann_whitney": {
+        "u": 29223.0,
+        "p_value": 1.247959568752003e-10,
+        "n1": 15,
+        "n2": 1985,
+        "median_diff": 49401.0,
+        "interpretation": "significant at p<0.001"
+      },
+      "cohens_d": {
+        "cohens_d": 3.0158036868658917,
+        "n1": 15,
+        "n2": 1985,
+        "pooled_sd": 16583.819140130185
+      }
+    },
+    "peers_vs_national_sticker_cost": {
+      "peer_median": 87648.0,
+      "national_median": 31112.5,
+      "mann_whitney": {
+        "u": 29062.0,
+        "p_value": 1.3590995223194023e-10,
+        "n1": 15,
+        "n2": 1976,
+        "median_diff": 56535.5,
+        "interpretation": "significant at p<0.001"
+      },
+      "cohens_d": {
+        "cohens_d": 2.400216583694185,
+        "n1": 15,
+        "n2": 1976,
+        "pooled_sd": 20251.83400145449
+      }
+    },
+    "peers_vs_national_grad_debt": {
+      "peer_median": 14384.0,
+      "national_median": 22334.0,
+      "mann_whitney": {
+        "u": 4669.0,
+        "p_value": 2.8760137846719613e-05,
+        "n1": 14,
+        "n2": 1893,
+        "median_diff": -7950.0,
+        "interpretation": "significant at p<0.001"
+      },
+      "cohens_d": {
+        "cohens_d": -1.1433551692782646,
+        "n1": 14,
+        "n2": 1893,
+        "pooled_sd": 5685.497716680542
+      }
+    }
+  },
+  "regression": {
+    "outcome": "log_earn",
+    "predictors": [
+      "real_NPT4_PRIV",
+      "SAT_AVG",
+      "log_adm",
+      "DEP_INC_AVG",
+      "PCTPELL"
+    ],
+    "n": 530,
+    "r_squared": 0.5702080217428199,
+    "adj_r_squared": 0.5661069532479995,
+    "f_p_value": 8.28392009496754e-99,
+    "terms": [
+      {
+        "name": "intercept",
+        "coef": 10.986141179340478,
+        "se": 0.007109450508868122,
+        "ci_low": 10.972206912393228,
+        "ci_high": 11.00007544628773,
+        "p_value": 0.0
+      },
+      {
+        "name": "real_NPT4_PRIV",
+        "coef": 0.003956811667369501,
+        "se": 0.010344976340521348,
+        "ci_low": -0.016318969380971306,
+        "ci_high": 0.024232592715710308,
+        "p_value": 0.7021006929175655
+      },
+      {
+        "name": "SAT_AVG",
+        "coef": 0.05587362032035439,
+        "se": 0.01627839845147705,
+        "ci_low": 0.023968545629466785,
+        "ci_high": 0.087778695011242,
+        "p_value": 0.0005983125162554678
+      },
+      {
+        "name": "log_adm",
+        "coef": -0.05055994417068074,
+        "se": 0.011415117595359675,
+        "ci_low": -0.07293316353687518,
+        "ci_high": -0.028186724804486314,
+        "p_value": 9.457923506605836e-06
+      },
+      {
+        "name": "DEP_INC_AVG",
+        "coef": 0.1186638342002041,
+        "se": 0.012772117351380518,
+        "ci_low": 0.09363094418517917,
+        "ci_high": 0.14369672421522903,
+        "p_value": 1.530601659731686e-20
+      },
+      {
+        "name": "PCTPELL",
+        "coef": 0.002619088844477882,
+        "se": 0.012430417094565663,
+        "ci_low": -0.02174408097368184,
+        "ci_high": 0.026982258662637603,
+        "p_value": 0.8331213769496645
+      }
+    ],
+    "vif": {
+      "real_NPT4_PRIV": 1.6572596619457418,
+      "SAT_AVG": 3.171378220710254,
+      "log_adm": 1.829844370790504,
+      "DEP_INC_AVG": 3.450661627213289,
+      "PCTPELL": 2.6726053680477255
+    },
+    "focal_residual": {
+      "school": "Stanford University",
+      "actual": 11.72868179785042,
+      "fitted": 11.34073318273807,
+      "residual": 0.3879486151123501,
+      "residual_pct": 47.395404337926905,
+      "actual_dollars": 124079.99999999999,
+      "fitted_dollars": 84181.7291097674
+    }
+  },
+  "trend": {
+    "tuition_series": [
+      {
+        "series": "stanford",
+        "start_year": 2000,
+        "end_year": 2024,
+        "start_nominal": 24716.0,
+        "end_nominal": 65910.0,
+        "start_real": 46213.67978565112,
+        "end_real": 67646.26536925406,
+        "nominal_growth_pct": 166.6693639747532,
+        "real_growth_pct": 46.3771456482406,
+        "cagr_nominal": 0.041714909944371215,
+        "cagr_real": 0.016002367055925948,
+        "years": 24
+      },
+      {
+        "series": "peer_median",
+        "start_year": 2000,
+        "end_year": 2024,
+        "start_nominal": 24890.0,
+        "end_nominal": 67250.0,
+        "start_real": 46539.02289467779,
+        "end_real": 69021.56495345676,
+        "nominal_growth_pct": 170.18883085576536,
+        "real_growth_pct": 48.30901179352023,
+        "cagr_nominal": 0.04228416878999974,
+        "cagr_real": 0.016557574943520725,
+        "years": 24
+      },
+      {
+        "series": "national_median",
+        "start_year": 2000,
+        "end_year": 2024,
+        "start_nominal": 3299.5,
+        "end_nominal": 10068.0,
+        "start_real": 6169.365449617894,
+        "end_real": 10333.221055039445,
+        "nominal_growth_pct": 205.13714199121077,
+        "real_growth_pct": 67.49244536453006,
+        "cagr_nominal": 0.04758023231487307,
+        "cagr_real": 0.021722916272500337,
+        "years": 24
+      }
+    ],
+    "series_start": 1996,
+    "series_end": 2025,
+    "stanford_total_cost": {
+      "start_year": 2009,
+      "end_year": 2024,
+      "start_nominal": 51760.0,
+      "end_nominal": 87833.0,
+      "nominal_growth_pct": 69.69281298299845,
+      "real_growth_pct": 16.067244639383404,
+      "cagr_nominal": 0.03588345493195666
+    }
+  }
+}

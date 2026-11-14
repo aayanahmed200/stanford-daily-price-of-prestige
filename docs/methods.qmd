@@ -1,0 +1,168 @@
+---
+title: "Methods"
+subtitle: "How every number in this project was produced"
+format: html
+---
+
+This document is the audit trail for *The Price of Prestige*. It describes the
+data, the cleaning rules, the sample definitions, and the statistics — and why
+each decision was made. It is written to be checkable: every claim maps to a
+file or a formula.
+
+## Data sources
+
+Full citations for every source, including one used for narrative context
+only (not pulled into the pipeline), are on the [Sources](sources.qmd) page.
+
+### College Scorecard (June 2026 release)
+
+- **Most-recent-cohort institution file**
+  (`Most-Recent-Cohorts-Institution_06102026.zip`): one row per institution,
+  with costs, aid, enrollment, completion, debt, and post-college earnings for
+  the most recent cohorts. Used for the cross-sectional analysis.
+- **Historical archive**
+  (`College_Scorecard_Raw_Data_06102026.zip`): institution-level files for
+  academic years 1996-97 through 2025-26. Used for the long-run tuition trend.
+  From this ~470 MB archive we extract a handful of columns
+  (`scripts.download.TREND_COLUMNS`) for every institution in each configured
+  year file, unfiltered, into `data/raw/trend_focus.csv` -- extracting a
+  narrow column set is what keeps this step cheap, not restricting which
+  institutions are kept. Splitting those rows into the focal school, its
+  peers, and a national aggregate per year happens afterward, in
+  `scripts.preprocess.build_cost_trend`.
+
+### CPI-U (FRED / Bureau of Labor Statistics)
+
+- Monthly `CPIAUCSL` (consumer price index, urban consumers, seasonally
+  adjusted). Annual averages are formed for each academic year and used to
+  express all dollar figures in **2025 dollars**. The reference year is
+  `CPI_REFERENCE_YEAR = 2025` in `scripts/config.py`.
+
+## Cleaning rules
+
+Raw Scorecard cells encode missing and suppressed values with the strings
+`NULL` and `PrivacySuppressed`. `scripts/helpers.to_numeric()` maps these to
+`NaN` before numeric coercion.
+
+Column groups (`scripts/config.py`):
+
+- `PERCENT_COLUMNS` (rates, 0-1 scale): admission rate, Pell share,
+  first-generation share, completion, retention, repayment.
+- `DOLLAR_COLUMNS`: costs, net prices, tuition, debt, earnings, family income.
+- `INTEGER_COLUMNS`: `UNITID`, `UGDS`, `COUNT_WNE_P10`.
+
+Validation (`scripts/validate.py`) enforces, as hard failures: required
+columns present; no duplicate `UNITID`s; `CONTROL` in {1,2,3}; `HIGHDEG` in
+0-4; no null ids/names; plausible ranges (net prices for the lowest income
+bracket may legitimately be negative, so the floor there is -$50,000); and the
+focal school's story metrics populated.
+
+## Sample definitions
+
+| Sample | Definition | Size |
+| --- | --- | --- |
+| Universe | `HIGHDEG >= 3` (4+ years), `CONTROL in {1,2}` (public/private non-profit) | 2,379 |
+| Peer frame | Stanford + 15 elite private universities (Ivy League, MIT, Caltech, Chicago, Northwestern, JHU, Rice, CMU) | 16 |
+| ROI sample | Universe schools with valid net price and median earnings, and `COUNT_WNE_P10 >= 30` | 1,079 |
+| ROI regression (fitted) | ROI sample schools that *also* have valid selectivity (`ADM_RATE`, `SAT_AVG`) and family-income (`DEP_INC_AVG`, `PCTPELL`) data, since the model uses all five predictors at once | 530 |
+
+The `MIN_COUNT_WNE_P10 = 30` floor protects the earnings analysis from schools
+whose Scorecard earnings records cover a handful of matched graduates. Note
+that "Universe" isn't filtered on cost data being present -- about 17% of
+universe rows are missing `COSTT4_A`, which is why sticker-cost figures and
+charts drop to a smaller n than the full 2,379.
+
+## Variables of interest
+
+- **Sticker cost** (`COSTT4_A`): published tuition, fees, room and board,
+  books and supplies for full-time, first-time students.
+- **Net price** (`NPT4_PRIV` and `NPT41..45_PRIV`): cost of attendance minus
+  average grant and scholarship aid, for private non-profit schools. The
+  bracketed versions are for dependent students by family income:
+  $0-30k, $30-48k, $48-75k, $75-110k, $110k+.
+- **Earnings** (`MD_EARN_WNE_P10` etc.): median earnings of the cohort that
+  first enrolled about ten years earlier, restricted to students who enrolled
+  in a particular year ("P10" = 10-year pool). Includes both graduates and
+  non-graduates.
+- **Completion** (`C150_4`): completion rate within 150% of expected time
+  (six years for a four-year degree).
+- **Debt** (`GRAD_DEBT_MDN`, `LO_INC_DEBT_MDN`, `HI_INC_DEBT_MDN`): median
+  cumulative debt of graduates (all, low-income, high-income borrowers).
+- **Family income** (`DEP_INC_AVG`): average family income of dependent
+  students (2021 dollars, inflation-adjusted).
+- **Selectivity** (`ADM_RATE`, `SAT_AVG`).
+
+## Statistics
+
+### Descriptive tables
+
+Net prices and medians are computed directly from the cleaned tables. Peer
+median comparisons use the 15 non-Stanford members of the peer frame (a member
+may be missing a given variable, so `n` is reported).
+
+### Aid-curve uncertainty
+
+`peer_ci_low` / `peer_ci_high` are 95% bootstrap confidence intervals for the
+peer median of net price in each income bracket (5,000 resamples, seeded —
+`bootstrap_median_ci` in `scripts/statistics.py`).
+
+### Earnings regression
+
+Ordinary least squares of **log** median earnings on standardized predictors
+(HC3 robust standard errors):
+
+```
+log(MD_EARN_WNE_P10) ~ real_NPT4_PRIV + SAT_AVG + log(ADM_RATE)
+                     + DEP_INC_AVG + PCTPELL
+```
+
+Coefficients are therefore "per one standard deviation" effects on log
+earnings. Multicollinearity is checked with VIFs (all < 4 in the fitted
+model).
+
+The **focal residual** is computed by refitting the model and measuring
+Stanford's actual log-earnings against its fitted value, converted to dollars:
+
+```
+residual_pct = exp(actual - fitted) - 1
+```
+
+Because the focal school is in the estimation sample, this is an in-sample
+residual, not a prediction interval, and it is *not* a causal estimate. It is
+reported to answer a descriptive question: do Stanford graduates out-earn what
+a school with Stanford's price, selectivity, and student-income profile would
+typically produce?
+
+### Trend statistics
+
+For each series (Stanford, peer median, national median), the first and last
+years with valid data define the window; growth and CAGR are computed on both
+nominal and real (2025-dollar) values:
+
+```
+nominal_growth = end/start - 1
+cagr = (end/start)^(1/years) - 1
+```
+
+Stanford tuition covers 2000-01 to 2024-25; Stanford total cost covers
+2009-10 to 2024-25.
+
+## Reproducibility
+
+- All stochastic procedures are seeded (`RANDOM_SEED = 20260701`).
+- The pipeline is idempotent: `scripts.download` skips files that already
+  exist unless `--force` is passed.
+- Every figure is generated by `scripts.visualization.py`; every statistic is
+  written to `outputs/results.json` by `scripts.analysis.py`.
+- The article reads its numbers from `results.json` — prose and data cannot
+  drift out of sync.
+
+## Known limitations
+
+- Earnings are ten-year-out cohort averages and include non-graduates; they
+  are not controlled for major, occupation, or graduate school.
+- Net prices are averages within income brackets and will not match any
+  individual family's award.
+- The residual analysis is descriptive and in-sample.
+- Scorecard suppressed values are treated as missing; this affects a small
+  number of peers for some variables.

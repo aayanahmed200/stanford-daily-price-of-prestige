@@ -1,0 +1,29 @@
+{
+  "raw_rows": 6273,
+  "universe_rows": 2379,
+  "peer_rows": 16,
+  "roi_sample_rows": 1079,
+  "aid_curve_rows": 80,
+  "cost_trend_years": 30,
+  "n_peer_schools": 16,
+  "n_stanford_rows": 1,
+  "missing_after_clean": {
+    "PCT75_EARN_WNE_P10": 0.1702,
+    "COSTT4_A": 0.1694,
+    "NPT41_PRIV": 0.509,
+    "NPT44_PRIV": 0.5502,
+    "GRAD_DEBT_MDN": 0.2043,
+    "PCT25_EARN_WNE_P10": 0.1782,
+    "NPT4_PRIV": 0.4918,
+    "HI_INC_DEBT_MDN": 0.2316,
+    "NPT43_PRIV": 0.5292,
+    "DEP_INC_AVG": 0.2055,
+    "MD_EARN_WNE_P10": 0.1656,
+    "TUITIONFEE_IN": 0.1383,
+    "NPT42_PRIV": 0.52,
+    "LO_INC_DEBT_MDN": 0.2089,
+    "FIRSTGEN_DEBT_MDN": 0.2144,
+    "PCT90_EARN_WNE_P10": 0.2409,
+    "NPT45_PRIV": 0.5771
+  }
+}

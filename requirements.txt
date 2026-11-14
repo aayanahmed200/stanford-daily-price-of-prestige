@@ -1,0 +1,25 @@
+# Core data stack
+numpy>=2.1,<3
+pandas>=2.2,<3
+scipy>=1.14,<2
+
+# Modeling
+statsmodels>=0.14,<1
+
+# Plotting
+matplotlib>=3.9,<4
+seaborn>=0.13,<1
+plotly>=5.24,<7
+kaleido>=0.2,<1
+
+# Development / quality
+pytest>=8,<10
+ruff>=0.11
+
+# Quarto Python interface (renders .qmd documents from the notebook)
+quarto>=0.1,<1
+
+# Jupyter stack required by `quarto render` for Python code chunks
+nbformat>=5.9,<6
+nbclient>=0.10,<1
+ipykernel>=6.29,<7

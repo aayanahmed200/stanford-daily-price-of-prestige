@@ -1,0 +1,57 @@
+---
+title: "Sources"
+subtitle: "Every dataset and publication behind this project"
+format: html
+---
+
+## Primary data
+
+**1. U.S. Department of Education, College Scorecard**
+Most Recent Cohorts institution file and historical archive (1996-97 to
+2025-26), June 2026 release. Washington, DC: U.S. Department of Education,
+Office of Planning, Evaluation and Policy Development.
+[collegescorecard.ed.gov](https://collegescorecard.ed.gov/) ·
+[data documentation](https://collegescorecard.ed.gov/data/)
+
+Provides institution-level cost, aid, enrollment, completion, debt, and
+post-enrollment earnings data for nearly every degree-granting institution in
+the United States. Used for the cross-sectional analysis (sticker price, net
+price by income bracket, debt, earnings, and the earnings regression) and,
+via the historical archive, the 25-year tuition trend.
+
+**2. Federal Reserve Bank of St. Louis (FRED) / U.S. Bureau of Labor
+Statistics**
+Consumer Price Index for All Urban Consumers: All Items in U.S. City Average
+(CPIAUCSL), seasonally adjusted, monthly.
+[fred.stlouisfed.org/series/CPIAUCSL](https://fred.stlouisfed.org/series/CPIAUCSL)
+
+Used to convert nominal dollar figures across different years into constant
+2025 dollars, so tuition and cost figures from different academic years can
+be compared on an inflation-adjusted basis.
+
+**3. Chetty, Raj, John N. Friedman, Emmanuel Saez, Nicholas Turner, and Danny
+Yagan. "Mobility Report Cards: The Role of Colleges in Intergenerational
+Mobility."** NBER Working Paper No. 23618, National Bureau of Economic
+Research, 2017 (Opportunity Insights).
+[opportunityinsights.org/paper/mrc](https://opportunityinsights.org/paper/mrc/) ·
+[NBER working paper](https://www.nber.org/papers/w23618)
+
+An independent analysis, built on de-identified federal tax and enrollment
+records rather than the Scorecard's institution-reported averages, of the
+family-income distribution and post-college outcomes of students at
+"Ivy-Plus" colleges — a group that includes Stanford. Cited here for
+context on *who* enrolls at elite private universities, complementing this
+project's focus on what those students pay and earn. Independently
+corroborates the shape of this project's finding that aid is steeply
+need-based while access still skews toward higher-income families.
+
+## How these sources relate to this project's data pipeline
+
+`scripts/download.py` fetches sources 1 and 2 programmatically; both are
+public and machine-readable. Source 3 is a published research paper cited
+for narrative and methodological context rather than pulled into the
+pipeline — its underlying microdata (IRS and NSLDS records linked at the
+individual level) is not publicly downloadable and is not part of this
+project's analysis universe.
+
+Full data-cleaning and modeling detail: [Methods](methods.qmd).

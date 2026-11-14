@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Raw inputs are large (and blocked on CI), so they are fetched by the
+# pipeline and never committed. Derived artifacts (data/processed, outputs,
+# figures) ARE committed so the GitHub Pages build needs no network.
+data/raw/*
+!data/raw/.gitkeep
+
+# Notebooks (Quarto) render artifacts
+notebooks/*.html
+notebooks/.quarto/
+*.nb.html
+
+# Quarto / IDE
+.quarto/
+_freeze/
+_site/
+*_files/
+index.html
+notebooks/*.html
+docs/*.html
+*.nb.html
+.DS_Store
+.idea/
+.vscode/
+
+/.quarto/
+**/*.quarto_ipynb

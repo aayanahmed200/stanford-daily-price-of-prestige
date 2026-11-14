@@ -1,0 +1,233 @@
+---
+title: "The Price of Prestige — Analysis Notebook"
+author: "Stanford Daily Tech Bootcamp"
+date: 2026-08-04
+format: html
+execute:
+  echo: true
+  warning: false
+  error: false
+---
+
+This notebook walks through the analysis behind *The Price of Prestige* step by
+step. It reads the **processed** data produced by the pipeline
+(`make pipeline`); every number you see here is recomputed from the cleaned
+Scorecard files and CPI series.
+
+```{python}
+import sys
+from pathlib import Path
+
+PROJECT_ROOT = Path.cwd().parent
+sys.path.insert(0, str(PROJECT_ROOT))
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+
+from scripts.config import (
+    FOCAL_SCHOOL, INCOME_BUCKETS, PEER_SCHOOLS,
+    PROCESSED_SCORECARD, PROCESSED_PEERS, PROCESSED_TREND, PROCESSED_ROI,
+)
+
+pd.set_option("display.float_format", lambda v: f"{v:,.0f}")
+```
+
+# 0. The universe
+
+The analysis universe is every four-year, degree-granting institution with a
+predominately bachelor's (or higher) focus, excluding for-profits. It is not
+restricted to schools with valid cost or earnings data -- about 17% of these
+rows are missing `COSTT4_A`, for instance -- so per-metric counts below can be
+smaller than the full universe.
+
+```{python}
+df = pd.read_csv(PROCESSED_SCORECARD)
+print(f"{len(df):,} schools")
+print(f"Four-year private non-profit: {(df['CONTROL']==2).sum():,}")
+print(f"Four-year public: {(df['CONTROL']==1).sum():,}")
+```
+
+# 1. Two prices for the same university
+
+The Scorecard's two headline cost variables:
+
+```{python}
+focal = df[df["INSTNM"] == FOCAL_SCHOOL].iloc[0]
+print("Sticker (cost of attendance) :", f"${focal['COSTT4_A']:,.0f}")
+print("Average net price            :", f"${focal['NPT4_PRIV']:,.0f}")
+print("National median sticker      :", f"${df['COSTT4_A'].median():,.0f}")
+print("National median net price    :", f"${df['NPT4_PRIV'].median():,.0f}")
+```
+
+The sticker price is 2.8x the national median — but the average net price is
+*below* the national median. Sticker prices at elite schools function more as a
+ceiling than a price.
+
+# 2. Net price by family income
+
+```{python}
+buckets = list(INCOME_BUCKETS)
+stanford = [focal[c] for c in buckets]
+peers = pd.read_csv(PROCESSED_PEERS)
+peer_med = [peers[c].median() for c in buckets]
+fig, ax = plt.subplots(figsize=(9, 5.5))
+x = np.arange(len(buckets))
+ax.plot(x, stanford, "o-", color="#8C1515", lw=2.5, label="Stanford")
+ax.plot(x, peer_med, "s--", color="#3E78B2", lw=2, label="Peer median")
+ax.axhline(0, color="#1F2933", lw=0.8)
+ax.set_xticks(x)
+ax.set_xticklabels([INCOME_BUCKETS[b] for b in buckets], rotation=20, ha="right")
+ax.set_ylabel("Average net price ($)")
+ax.legend()
+ax.set_title("Net price by family income")
+fig.tight_layout()
+```
+
+```{python}
+gap = stanford[4] - stanford[0]
+print(f"Gap, richest bracket ($110,001+) minus poorest ($0-30,000): ${gap:,.0f}")
+```
+
+Notice the two lowest brackets: **negative** net price, meaning aid exceeds
+cost. The gap between the poorest and richest brackets, printed above, is the
+"middle-class squeeze" at the heart of the aid-curve story.
+
+# 3. The peer frame
+
+Stanford is rarely compared to the national median — it is compared to its
+peers. The peer set is the Ivy League plus MIT, Caltech, Chicago, Northwestern,
+JHU, Rice, and CMU.
+
+```{python}
+peers["rank"] = peers["NPT4_PRIV"].rank(ascending=True)
+peers.sort_values("rank")[["INSTNM", "NPT4_PRIV", "COSTT4_A", "C150_4",
+                           "PCTPELL", "MD_EARN_WNE_P10", "GRAD_DEBT_MDN"]]
+```
+
+Key observations from the table:
+
+- **Net price:** Stanford ($13,807) ranks 3rd-lowest of 16 — cheaper in
+  practice than the national median.
+- **Sticker:** rank 10 of 16 — in the expensive half.
+- **Completion:** 6-year rate 91.9% is the *lowest* of the 16, despite being
+  far above the national median (53.1%).
+- **Pell share:** 19.2%, close to the peer median (~18%) though a bit above
+  it, versus 33.0% nationally.
+
+# 4. Debt
+
+```{python}
+debt = pd.DataFrame({
+    "Stanford": [focal["GRAD_DEBT_MDN"], focal["LO_INC_DEBT_MDN"], focal["HI_INC_DEBT_MDN"]],
+    "Peer median": [peers["GRAD_DEBT_MDN"].median(), peers["LO_INC_DEBT_MDN"].median(),
+                    peers["HI_INC_DEBT_MDN"].median()],
+    "National median": [df["GRAD_DEBT_MDN"].median(), df["LO_INC_DEBT_MDN"].median(),
+                        df["HI_INC_DEBT_MDN"].median()],
+}, index=["All borrowers", "Low-income", "High-income"])
+debt
+```
+
+Stanford borrowers carry about half the national median debt, and low-income
+borrowers just `$6,500`. Generous need-based aid — not high prices — is what
+makes this possible.
+
+# 5. Earnings ten years out
+
+```{python}
+roi = pd.read_csv(PROCESSED_ROI)
+print(f"ROI sample: {len(roi):,} schools")
+```
+
+The earnings variables are for the cohort measured roughly ten years after
+first enrollment.
+
+```{python}
+print("Stanford median earnings:", f"${focal['MD_EARN_WNE_P10']:,.0f}")
+print("National median earnings:", f"${df['MD_EARN_WNE_P10'].median():,.0f}")
+print("P90 earnings:            ", f"${focal['PCT90_EARN_WNE_P10']:,.0f}")
+```
+
+# 6. The earnings residual
+
+Now the interesting question: is Stanford's earnings premium just a
+consequence of whom it admits? We regress log median earnings on net price,
+selectivity (log admission rate), mean family income, and Pell share — all
+standardized — using HC3 robust standard errors.
+
+```{python}
+import statsmodels.api as sm
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+sample = roi.dropna(subset=["MD_EARN_WNE_P10", "NPT4_PRIV", "ADM_RATE",
+                           "DEP_INC_AVG", "PCTPELL", "SAT_AVG"]).copy()
+sample["log_earn"] = np.log(sample["MD_EARN_WNE_P10"])
+sample["log_adm"] = np.log(sample["ADM_RATE"])
+
+predictors = ["real_NPT4_PRIV", "SAT_AVG", "log_adm", "DEP_INC_AVG", "PCTPELL"]
+y = sample["log_earn"].to_numpy()
+X = (sample[predictors] - sample[predictors].mean()) / sample[predictors].std()
+model = sm.OLS(y, sm.add_constant(X)).fit(cov_type="HC3")
+model.summary()
+```
+
+The dominant predictor is **mean family income** (`DEP_INC_AVG`, coefficient
+~0.12 per SD, `p < 0.001`); net price and Pell share add nothing significant.
+Now the residual for Stanford:
+
+```{python}
+from scripts.statistics import add_focal_residual
+res = sample[["UNITID", "INSTNM", "log_earn", *predictors]]
+res_model = add_focal_residual(
+    {"terms": [], "r_squared": float(model.rsquared)}, res,
+    "log_earn", predictors, log_outcome=True)
+fr = res_model["focal_residual"]
+print("Predicted median earnings:", f"${fr['fitted_dollars']:,.0f}")
+print("Actual median earnings:   ", f"${fr['actual_dollars']:,.0f}")
+print("Residual:                 ", f"{fr['residual']:+.2f} log points")
+print(f"  = {fr['residual_pct']:+.1f}% above prediction")
+```
+
+That ~47% residual — earnings above what the school's inputs predict — is the
+core "prestige premium" finding. It is descriptive and in-sample, so it should
+be read as "Stanford's graduates out-earn the profile of the school," not "a
+Stanford degree causes a 47% raise."
+
+# 7. The long-run trend
+
+The historical archive lets us track tuition for the same school over 25 years.
+
+```{python}
+trend = pd.read_csv(PROCESSED_TREND)
+trend.head()
+```
+
+```{python}
+sub = trend.dropna(subset=["stanford_tuition"]).sort_values("year_int")
+start, end = sub.iloc[0], sub.iloc[-1]
+print(f"Tuition {int(start['year_int'])}: ${start['stanford_tuition']:,.0f}")
+print(f"Tuition {int(end['year_int'])}:   ${end['stanford_tuition']:,.0f}")
+print(f"Nominal growth: {end['stanford_tuition']/start['stanford_tuition']-1:+.0%}")
+print(f"Real growth:    {end['real_stanford_tuition']/start['real_stanford_tuition']-1:+.0%}")
+```
+
+Real (inflation-adjusted) tuition growth of roughly +46% over 24 years is
+fast — but nearly identical to the +48% seen across the peer set. The scandal
+isn't the growth rate; it's the level.
+
+# Reproducing the analysis
+
+Everything above is derived from processed files created by the pipeline:
+
+```python
+# ! python -m scripts.download    # fetch raw data (~0.5 GB)
+# ! python -m scripts.validate    # data-quality checks
+# ! python -m scripts.preprocess  # clean + inflation-adjust
+# ! python -m scripts.analysis    # statistics -> outputs/results.json
+# ! python -m scripts.visualization  # figures
+```
+
+The article reads its numbers from `outputs/results.json`, so prose and data
+cannot drift apart. See [`README.md`](../README.md) and
+[`docs/methods.qmd`](../docs/methods.qmd) for details.

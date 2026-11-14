@@ -1,0 +1,293 @@
+/*-- scss:defaults --*/
+$stanford-cardinal: #8C1515;
+$stanford-cardinal-dark: #6b1010;
+$ink: #1F2933;
+$slate: #5B6770;
+$paper: #FFFFFF;
+$hairline: #E1E6EA;
+$serif: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+$sans: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+$font-family-sans-serif: $sans !default;
+$font-family-serif: $serif !default;
+$body-color: $ink !default;
+$link-color: $stanford-cardinal !default;
+$link-active: #0B5FFF; // Active link color (blue) requested
+$toc-color: $stanford-cardinal !default;
+
+/*-- scss:rules --*/
+
+// Body copy reads as an article: serif text, generous measure, calm line height.
+body {
+  font-family: $sans;
+}
+
+/* Defensive accessibility: ensure page text and background cannot be overridden by theme or embeds */
+html, body {
+  color: $body-color !important;
+  background-color: $paper !important;
+}
+
+a, .nav-link, a:visited {
+  color: $link-color;
+}
+
+// Make active/selected nav links consistently blue across header, sidebar, and tabsets
+.nav-link.active,
+.navbar .nav-link.active,
+.sidebar nav[role="doc-toc"] ul > li > a.active,
+.panel-tabset .nav-link.active,
+a.active,
+a:active {
+  color: $link-active !important;
+  background: transparent !important;
+}
+
+// Hover matches the active-link blue, so hover and active states read consistently
+a:hover, .nav-link:hover, .panel-tabset .nav-link:hover {
+  color: $link-active;
+  text-decoration: underline;
+}
+
+main.content {
+  font-family: $serif;
+  font-size: 1.09rem;
+  line-height: 1.68;
+  color: $ink;
+}
+
+main.content p {
+  margin-bottom: 1.15em;
+}
+
+// Headings stay sans-serif for contrast against serif body copy, in house cardinal.
+h1, h2, h3, h4, .navbar-brand {
+  font-family: $sans;
+  color: $stanford-cardinal;
+  font-weight: 700;
+}
+
+h1.title {
+  border-bottom: 3px solid $stanford-cardinal;
+  padding-bottom: 0.4rem;
+}
+
+.subtitle {
+  font-family: $serif;
+  font-style: italic;
+  color: $slate;
+}
+
+h2 {
+  margin-top: 2.6em;
+  padding-top: 0.6em;
+  border-top: 1px solid $hairline;
+  font-size: 1.5rem;
+}
+
+strong { color: $stanford-cardinal; }
+
+// ---------------------------------------------------------------------
+// Figures: the images are the reporting, so give them real presentation
+// ---------------------------------------------------------------------
+.quarto-figure {
+  margin: 2.2em 0;
+}
+
+figure {
+  margin: 2.2em 0;
+}
+
+figure img,
+.quarto-figure img,
+.cell-output-display img,
+.quarto-figure svg,
+.cell-output-display svg,
+.quarto-figure .figure-html,
+.cell-output-display .figure-html {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  width: 100%;
+  border: 1px solid $hairline;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(31, 41, 51, 0.06), 0 6px 20px rgba(31, 41, 51, 0.08);
+  background: $paper;
+  transition: box-shadow 0.15s ease;
+  object-fit: contain;
+}
+
+figure img:hover,
+.quarto-figure img:hover {
+  box-shadow: 0 2px 6px rgba(31, 41, 51, 0.09), 0 10px 28px rgba(31, 41, 51, 0.12);
+}
+
+figcaption,
+.figure-caption,
+.quarto-figure figcaption {
+  font-family: $sans;
+  font-size: 0.86rem;
+  color: $slate;
+  text-align: center;
+  margin-top: 0.7em;
+  padding: 0 1.5rem;
+  line-height: 1.5;
+}
+
+// Interactive (Plotly) figures get the same card treatment as static ones.
+.cell-output-display iframe,
+.cell-output-display > div > div {
+  border: 1px solid $hairline;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+// Ensure svg and embedded html blocks do not overflow or overlap neighbors
+.cell-output-display svg,
+.cell-output-display .figure-html,
+.quarto-figure svg,
+.quarto-figure .figure-html {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+}
+
+// ---------------------------------------------------------------------
+// Callouts, tables, tabs
+// ---------------------------------------------------------------------
+.callout {
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(31, 41, 51, 0.05);
+}
+
+.callout-note {
+  border-left-color: $stanford-cardinal;
+}
+
+.callout-note .callout-title {
+  color: $stanford-cardinal;
+  font-family: $sans;
+}
+
+table {
+  font-family: $sans;
+  font-size: 0.92rem;
+}
+
+.table > thead {
+  border-bottom: 2px solid $stanford-cardinal;
+}
+
+.table > thead th {
+  color: $stanford-cardinal;
+  font-weight: 700;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: rgba(140, 21, 21, 0.03);
+}
+
+.panel-tabset .nav-link.active {
+  color: $link-active !important;
+  border-bottom: 2px solid $link-active;
+  font-weight: 600;
+}
+
+// ---------------------------------------------------------------------
+// Navbar + footer
+// ---------------------------------------------------------------------
+.navbar {
+  border-bottom: 3px solid $stanford-cardinal;
+}
+
+.navbar-brand {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+// Bootstrap's default navbar-brand hover/focus color is white (meant for a dark navbar).
+// This site forces a white navbar background above, so without this override, hovering
+// or focusing the "The Price of Prestige" brand text turns it white-on-white and it
+// disappears. Pin it to the same cardinal color used elsewhere so it stays visible.
+.navbar-brand:hover,
+.navbar-brand:focus {
+  color: $stanford-cardinal !important;
+}
+
+#quarto-header .navbar {
+  background: $paper !important;
+}
+
+.footer,
+#quarto-footer {
+  border-top: 1px solid $hairline;
+  color: $slate;
+  font-family: $sans;
+  font-size: 0.85rem;
+}
+
+// TOC
+#TOC {
+  font-family: $sans;
+  font-size: 0.88rem;
+}
+
+.sidebar nav[role="doc-toc"] ul > li > a.active {
+  color: $link-active;
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------
+   Accessibility & figure/container fixes
+   - Enforce readable colors for small text (captions, footers)
+   - Make figure containers create a stacking context and avoid overlap
+   - Make interactive outputs (iframes/plotly) have a background & min-height
+   --------------------------------------------------------------------- */
+
+/* Ensure small text like captions does not get overridden by embeds */
+figure .figure-caption,
+.quarto-figure figcaption,
+.footer,
+#quarto-footer,
+.code, .cell-output-display {
+  color: $slate !important;
+}
+
+/* Figure container: keep images and interactive outputs from overlapping
+   neighbors and ensure a predictable stacking context */
+.quarto-figure,
+figure {
+  position: relative;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  max-width: 980px;
+  margin: 2.2em auto;
+}
+
+/* Interactive output container: give space and a background so text inside
+   embedded visualizations remains readable on top of the site background */
+.cell-output-display {
+  min-height: 220px;
+  background: $paper;
+  overflow: auto;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.cell-output-display iframe,
+.cell-output-display > div > div {
+  background: $paper;
+  z-index: 1;
+}
+
+/* Small text contrast guard for accessibility */
+.small, .figure-caption, figcaption {
+  color: $slate !important;
+}
+
+/* Make sure any link in a caption is visible */
+.figure-caption a, figcaption a {
+  color: $stanford-cardinal !important;
+}

@@ -1,0 +1,278 @@
+{
+  "institution": {
+    "n_rows": 6273,
+    "n_columns": 33,
+    "checks": [
+      {
+        "name": "schema: required columns present",
+        "passed": true,
+        "hard": true,
+        "detail": "missing=[]"
+      },
+      {
+        "name": "ids: no duplicate UNITID",
+        "passed": true,
+        "hard": true,
+        "detail": "duplicate rows=0"
+      },
+      {
+        "name": "categorical: CONTROL in {{1,2,3}}",
+        "passed": true,
+        "hard": true,
+        "detail": "values=[np.int64(1), np.int64(2), np.int64(3)]"
+      },
+      {
+        "name": "categorical: HIGHDEG in 0..4",
+        "passed": true,
+        "hard": true,
+        "detail": "values=[np.int64(0), np.int64(1), np.int64(2), np.int64(3), np.int64(4)]"
+      },
+      {
+        "name": "ids: UNITID non-null",
+        "passed": true,
+        "hard": true,
+        "detail": "null ids=0"
+      },
+      {
+        "name": "ids: INSTNM non-null",
+        "passed": true,
+        "hard": true,
+        "detail": "null names=0"
+      },
+      {
+        "name": "range: NPT43_PRIV plausible",
+        "passed": false,
+        "hard": false,
+        "detail": "implausible=1"
+      },
+      {
+        "name": "range: NPT45_PRIV plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: DEP_INC_AVG plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: TUITIONFEE_IN plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: LO_INC_DEBT_MDN plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: UNITID plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: PCT90_EARN_WNE_P10 plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: FIRSTGEN_DEBT_MDN plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: COSTT4_A plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: GRAD_DEBT_MDN plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: PCT25_EARN_WNE_P10 plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: COUNT_WNE_P10 plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: HI_INC_DEBT_MDN plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: NPT41_PRIV plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: UGDS plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: NPT4_PRIV plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: NPT44_PRIV plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: MD_EARN_WNE_P10 plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: PCT75_EARN_WNE_P10 plausible",
+        "passed": true,
+        "hard": false,
+        "detail": "implausible=0"
+      },
+      {
+        "name": "range: NPT42_PRIV plausible",
+        "passed": false,
+        "hard": false,
+        "detail": "implausible=6"
+      },
+      {
+        "name": "range: ADM_RATE in [0,1]",
+        "passed": true,
+        "hard": false,
+        "detail": "out-of-range=0"
+      },
+      {
+        "name": "range: PCTPELL in [0,1]",
+        "passed": true,
+        "hard": false,
+        "detail": "out-of-range=0"
+      },
+      {
+        "name": "range: C150_4 in [0,1]",
+        "passed": true,
+        "hard": false,
+        "detail": "out-of-range=0"
+      },
+      {
+        "name": "range: PAR_ED_PCT_1STGEN in [0,1]",
+        "passed": true,
+        "hard": false,
+        "detail": "out-of-range=0"
+      },
+      {
+        "name": "range: RET_FT4 in [0,1]",
+        "passed": true,
+        "hard": false,
+        "detail": "out-of-range=0"
+      },
+      {
+        "name": "range: RPY_3YR_RT in [0,1]",
+        "passed": true,
+        "hard": false,
+        "detail": "out-of-range=0"
+      },
+      {
+        "name": "missingness: required columns populated",
+        "passed": true,
+        "hard": true,
+        "detail": ">99% missing: []"
+      },
+      {
+        "name": "focal: Stanford present",
+        "passed": true,
+        "hard": true,
+        "detail": "matches=1"
+      },
+      {
+        "name": "focal: story metrics populated",
+        "passed": true,
+        "hard": true,
+        "detail": "missing=[]"
+      }
+    ],
+    "missingness": {
+      "SAT_AVG": 0.8347,
+      "NPT45_PRIV": 0.7011,
+      "ADM_RATE": 0.6955,
+      "RET_FT4": 0.6719,
+      "NPT44_PRIV": 0.6577,
+      "C150_4": 0.6392,
+      "NPT43_PRIV": 0.6013,
+      "NPT42_PRIV": 0.5718,
+      "NPT41_PRIV": 0.4964,
+      "COSTT4_A": 0.49,
+      "NPT4_PRIV": 0.4837,
+      "TUITIONFEE_IN": 0.4242,
+      "PCT90_EARN_WNE_P10": 0.2284,
+      "PCT25_EARN_WNE_P10": 0.1986,
+      "PCT75_EARN_WNE_P10": 0.1878,
+      "RPY_3YR_RT": 0.1862,
+      "COUNT_WNE_P10": 0.1827,
+      "MD_EARN_WNE_P10": 0.1827,
+      "PCTPELL": 0.132,
+      "UGDS": 0.1267,
+      "PAR_ED_PCT_1STGEN": 0.0941,
+      "DEP_INC_AVG": 0.0941,
+      "CCBASIC": 0.0749,
+      "GRAD_DEBT_MDN": 0.0427,
+      "LO_INC_DEBT_MDN": 0.0427,
+      "HI_INC_DEBT_MDN": 0.0427,
+      "FIRSTGEN_DEBT_MDN": 0.0427,
+      "UNITID": 0.0,
+      "INSTNM": 0.0,
+      "CITY": 0.0,
+      "STABBR": 0.0,
+      "HIGHDEG": 0.0,
+      "CONTROL": 0.0
+    },
+    "hard_failures": []
+  },
+  "trend": {
+    "n_rows": 208759,
+    "n_years": 30,
+    "checks": [
+      {
+        "name": "trend columns present",
+        "passed": true,
+        "hard": true,
+        "detail": "['UNITID', 'INSTNM', 'CONTROL', 'COSTT4_A', 'TUITIONFEE_IN', 'NPT4_PRIV']"
+      }
+    ],
+    "hard_failures": []
+  },
+  "cpi": {
+    "checks": [
+      {
+        "name": "cpi schema",
+        "passed": true,
+        "hard": true,
+        "detail": "header=['observation_date', 'CPIAUCSL']"
+      }
+    ],
+    "hard_failures": []
+  }
+}

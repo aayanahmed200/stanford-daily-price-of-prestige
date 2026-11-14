@@ -1,0 +1,18 @@
+# Conda environment for the Price of Prestige analysis.
+# Create with:  conda env create -f environment.yml
+name: stanford-daily-price-of-prestige
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - numpy>=2.1
+  - pandas>=2.2
+  - scipy>=1.14
+  - statsmodels>=0.14
+  - matplotlib>=3.9
+  - seaborn>=0.13
+  - plotly>=5.24
+  - pytest>=8
+  - ruff
+  - pip
