@@ -54,4 +54,4 @@ The reported figures reflect the College Scorecard release, cohort definitions, 
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for the full text.
