@@ -1,12 +1,12 @@
 # Stanford Daily: The Price of Prestige
 
-**Read the article:** [aayanahmed200.github.io/stanford-daily-price-of-prestige](https://aayanahmed200.github.io/stanford-daily-price-of-prestige/)
+**Live:** [aayanahmed200.github.io/stanford-daily-price-of-prestige](https://aayanahmed200.github.io/stanford-daily-price-of-prestige/)
 
 **Series:** [PlasticList](https://aayanahmed200.github.io/stanford-daily-plasticlist-eda/) · [Blotter fiction](https://aayanahmed200.github.io/stanford-daily-blotter-fiction/) · [ICE pipeline](https://aayanahmed200.github.io/stanford-daily-biglocal-ice-pipeline/)
 
 [![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/) [![Pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/) [![Plotly](https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/) [![Sass](https://img.shields.io/badge/sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/) [![GitHub Actions](https://img.shields.io/badge/github%20actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/features/actions)
 
-A data-journalism investigation into Stanford tuition, financial aid, student costs, and graduate earnings.
+A data-journalism investigation into Stanford tuition, financial aid, student costs, and graduate earnings. Built with Python 3.12, Quarto, pandas, Plotly, pytest, Ruff, and GitHub Actions.
 
 ## Overview
 
@@ -28,10 +28,6 @@ The project compares student costs after financial aid with published tuition, t
 - `notebooks/notebook.qmd` - the analysis notebook linked from the site.
 - `_quarto.yml`, `assets/quarto.scss` - site configuration and the report stylesheet.
 - `tests/` - pytest checks for preprocessing, statistics, validation and helpers.
-
-## Technology
-
-Python 3.12, Quarto, pandas, Plotly, pytest, Ruff, and GitHub Actions.
 
 ## Run locally
 
