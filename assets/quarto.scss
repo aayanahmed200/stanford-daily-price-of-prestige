@@ -327,3 +327,93 @@ html {
 
 ::-webkit-scrollbar-thumb:hover { background-color: $stanford-cardinal-dark; }
 ::-webkit-scrollbar-corner { background: transparent; }
+
+/* ---------------------------------------------------------------------
+   Series bar and reference list, matching the three companion sites.
+   --------------------------------------------------------------------- */
+
+.series-bar {
+  border-bottom: 1px solid $hairline;
+  background: $paper;
+}
+
+.series-bar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 24px;
+  width: min(100% - 48px, 1080px);
+  margin: 0 auto;
+  padding: 15px 0 13px;
+}
+
+.series-bar__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $stanford-cardinal;
+  text-decoration: none;
+}
+
+.series-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.series-bar__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-family: $sans;
+  font-size: 0.9rem;
+}
+
+.series-bar__links a {
+  color: $ink;
+  text-decoration: none;
+}
+
+.series-bar__links a:hover {
+  color: $stanford-cardinal;
+  text-decoration: underline;
+}
+
+.series-bar__links a[aria-current="page"] {
+  color: $stanford-cardinal;
+  font-weight: 600;
+}
+
+.series-bar__gh {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.88rem;
+  color: $slate;
+  text-decoration: none;
+}
+
+.series-bar__gh:hover { color: $stanford-cardinal; }
+.series-bar__gh svg { width: 17px; height: 17px; fill: currentColor; }
+
+@media (max-width: 720px) {
+  .series-bar__inner { width: min(100% - 32px, 1080px); padding: 12px 0 10px; }
+  .series-bar__links { gap: 12px; font-size: 0.85rem; }
+  .series-bar__gh span { display: none; }
+}
+
+.refs ol {
+  margin: 0;
+  padding-left: 1.3em;
+  font-family: $sans;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: #3c3833;
+}
+
+.refs li { margin-bottom: 1.15em; }
+.refs li:last-child { margin-bottom: 0; }
+.refs li p { margin: 0.35em 0 0; color: $slate; }
+.refs a { overflow-wrap: anywhere; }

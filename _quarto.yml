@@ -30,6 +30,7 @@ website:
         aria-label: GitHub repository
   page-footer:
     left: "Data: U.S. Dept. of Education College Scorecard & FRED/BLS CPI. See [References](/docs/sources.qmd)."
+    center: "Series: [PlasticList](https://aayanahmed200.github.io/stanford-daily-plasticlist-eda/) · [Blotter fiction](https://aayanahmed200.github.io/stanford-daily-blotter-fiction/) · [ICE pipeline](https://aayanahmed200.github.io/stanford-daily-biglocal-ice-pipeline/)"
     right: "Produced for the [Stanford Daily Tech Bootcamp](https://github.com/TheStanfordDaily/tech-practicum)."
 
 format:
@@ -42,6 +43,8 @@ format:
       light:
         - flatly
         - assets/quarto.scss
+    include-before-body:
+      - file: assets/series-nav.html
     include-in-header:
       - text: |
           <link rel="preconnect" href="https://fonts.googleapis.com">
