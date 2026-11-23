@@ -486,3 +486,50 @@ h2 { font-size: 1.05rem; }
   padding-top: 18px;
   padding-bottom: 24px;
 }
+
+/* ---------------------------------------------------------------------
+   Header and footer.
+
+   Quarto's default is a navbar pinned over the page (`body.nav-fixed`, a
+   `fixed-top headroom` header, and matching body padding), while the companion
+   sites scroll a plain masthead. The header is made static and the padding
+   removed so both behave the same. The footer is Quarto's own `footer.footer`
+   with footer-left/center/right, not `#quarto-footer`, so it is styled by the
+   class that actually exists.
+   --------------------------------------------------------------------- */
+
+#quarto-header,
+#quarto-header.headroom,
+header.headroom {
+  position: static !important;
+  border-bottom: 0;
+  box-shadow: none !important;
+}
+
+body.nav-fixed { padding-top: 0 !important; }
+
+footer.footer,
+.nav-footer {
+  background-color: $paper !important;
+  border-top: 1px solid $hairline;
+  color: $slate;
+  font-family: $sans;
+  font-size: 0.84rem;
+  padding: 20px 0 26px;
+}
+
+footer.footer a,
+.nav-footer a {
+  color: $slate;
+}
+
+footer.footer a:hover,
+.nav-footer a:hover {
+  color: $stanford-cardinal;
+}
+
+.nav-footer .footer-left,
+.nav-footer .footer-center,
+.nav-footer .footer-right {
+  line-height: 1.6;
+}
