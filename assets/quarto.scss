@@ -427,6 +427,10 @@ html {
    both sets of pages compute the same numbers.
    --------------------------------------------------------------------- */
 
+:root { --bs-root-font-size: 16px; }
+
+/* Bootstrap sizes :root from this variable, and the pseudo-class outranks a
+   plain html selector, so the variable -- not html -- has to carry the 16px. */
 html { font-size: 16px; }
 
 body {
