@@ -29,9 +29,9 @@ website:
         href: https://github.com/aayanahmed200/stanford-daily-price-of-prestige
         aria-label: GitHub repository
   page-footer:
-    left: "Data: U.S. Dept. of Education College Scorecard & FRED/BLS CPI. See [References](/docs/sources.qmd)."
+    left: "Stanford Daily Tech Bootcamp · data journalism"
     center: "Series: [PlasticList](https://aayanahmed200.github.io/stanford-daily-plasticlist-eda/) · [Blotter fiction](https://aayanahmed200.github.io/stanford-daily-blotter-fiction/) · [ICE pipeline](https://aayanahmed200.github.io/stanford-daily-biglocal-ice-pipeline/)"
-    right: "Produced for the [Stanford Daily Tech Bootcamp](https://github.com/TheStanfordDaily/tech-practicum)."
+    right: "[Repository](https://github.com/aayanahmed200/stanford-daily-price-of-prestige) · [Practicum](https://github.com/TheStanfordDaily/tech-practicum)"
 
 format:
   html:

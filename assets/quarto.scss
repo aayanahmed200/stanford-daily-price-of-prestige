@@ -417,3 +417,72 @@ html {
 .refs li:last-child { margin-bottom: 0; }
 .refs li p { margin: 0.35em 0 0; color: $slate; }
 .refs a { overflow-wrap: anywhere; }
+
+/* ---------------------------------------------------------------------
+   Type scale shared with the companion sites.
+
+   The series pages set a 16px root and 17px body, so their rem sizes land
+   at 49.6px titles and 17.4px prose. The Quarto theme inherits a 17px root,
+   which made every rem-based size a step larger; pinning the root here makes
+   both sets of pages compute the same numbers.
+   --------------------------------------------------------------------- */
+
+html { font-size: 16px; }
+
+body {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+h1.title {
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+  line-height: 1.12;
+}
+
+h2 { font-size: 1.05rem; }
+
+#quarto-document-content p,
+#quarto-document-content li,
+#quarto-document-content dd {
+  font-family: $serif;
+  font-size: 1.09rem;
+  line-height: 1.72;
+}
+
+#quarto-document-content .callout p { font-size: 1rem; }
+
+/* --- Navbar: the same flat paper row as the series masthead --------- */
+.navbar {
+  border-bottom: 1px solid $hairline;
+  background: $paper !important;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.navbar .navbar-brand {
+  font-family: $serif;
+  font-size: 1.02rem;
+  color: $ink;
+}
+
+.navbar .nav-link {
+  font-size: 0.9rem;
+  color: $ink;
+}
+
+.navbar .nav-link.active {
+  color: $stanford-cardinal !important;
+  font-weight: 600;
+}
+
+/* --- Footer: one muted row, as on the other pages ------------------- */
+#quarto-footer {
+  font-size: 0.84rem;
+  color: $slate;
+}
+
+#quarto-footer .page-footer {
+  border-top: 1px solid $hairline;
+  padding-top: 18px;
+  padding-bottom: 24px;
+}
