@@ -1,10 +1,10 @@
 /*-- scss:defaults --*/
 $stanford-cardinal: #8C1515;
 $stanford-cardinal-dark: #6b1010;
-$ink: #1F2933;
-$slate: #5B6770;
-$paper: #FFFFFF;
-$hairline: #E1E6EA;
+$ink: #1c1a17;
+$slate: #6b6560;
+$paper: #fbfaf8;
+$hairline: #e4ded4;
 $serif: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
 $sans: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -63,13 +63,20 @@ main.content p {
 // Headings stay sans-serif for contrast against serif body copy, in house cardinal.
 h1, h2, h3, h4, .navbar-brand {
   font-family: $sans;
-  color: $stanford-cardinal;
+  color: $ink;
   font-weight: 700;
 }
 
+// Matches the series pages: a serif title in ink, section headings in small
+// uppercase cardinal so a reader moving between the four sites sees one system.
 h1.title {
-  border-bottom: 3px solid $stanford-cardinal;
-  padding-bottom: 0.4rem;
+  font-family: $serif;
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: $ink;
+  border-bottom: 0;
+  padding-bottom: 0;
 }
 
 .subtitle {
@@ -79,10 +86,13 @@ h1.title {
 }
 
 h2 {
-  margin-top: 2.6em;
-  padding-top: 0.6em;
-  border-top: 1px solid $hairline;
-  font-size: 1.5rem;
+  margin: 2.6em 0 0.8em;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 1.02rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $stanford-cardinal;
 }
 
 strong { color: $stanford-cardinal; }
@@ -291,3 +301,29 @@ figure {
 .figure-caption a, figcaption a {
   color: $stanford-cardinal !important;
 }
+
+/* ---------------------------------------------------------------------
+   Scrollbar: cardinal thumb on a transparent track, as on the other
+   Stanford Daily pages.
+   --------------------------------------------------------------------- */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: $stanford-cardinal transparent;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+::-webkit-scrollbar-track { background: transparent; }
+
+::-webkit-scrollbar-thumb {
+  background-color: $stanford-cardinal;
+  border: 3px solid transparent;
+  border-radius: 999px;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover { background-color: $stanford-cardinal-dark; }
+::-webkit-scrollbar-corner { background: transparent; }

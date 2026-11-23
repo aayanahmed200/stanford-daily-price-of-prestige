@@ -22,14 +22,14 @@ website:
         file: notebooks/notebook.qmd
       - text: "Methods"
         file: docs/methods.qmd
-      - text: "Sources"
+      - text: "References"
         file: docs/sources.qmd
     right:
       - icon: github
         href: https://github.com/aayanahmed200/stanford-daily-price-of-prestige
         aria-label: GitHub repository
   page-footer:
-    left: "Data: U.S. Dept. of Education College Scorecard & FRED/BLS CPI. See [Sources](/docs/sources.qmd)."
+    left: "Data: U.S. Dept. of Education College Scorecard & FRED/BLS CPI. See [References](/docs/sources.qmd)."
     right: "Produced for the [Stanford Daily Tech Bootcamp](https://github.com/TheStanfordDaily/tech-practicum)."
 
 format:
