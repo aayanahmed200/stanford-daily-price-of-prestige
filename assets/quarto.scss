@@ -1,539 +1,253 @@
 /*-- scss:defaults --*/
-$stanford-cardinal: #8C1515;
-$stanford-cardinal-dark: #6b1010;
+
+// The series palette, matching assets/series.css. Keeping the values here lets
+// Bootstrap's own components (code, tables, callouts) use the same colours.
+$cardinal: #8c1515;
+$cardinal-dark: #6b1010;
 $ink: #1c1a17;
-$slate: #6b6560;
+$muted: #6b6560;
 $paper: #fbfaf8;
 $hairline: #e4ded4;
 $serif: "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
 $sans: "Source Sans 3", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-$font-family-sans-serif: $sans !default;
-$font-family-serif: $serif !default;
-$body-color: $ink !default;
-$link-color: $stanford-cardinal !default;
-$link-active: #0B5FFF; // Active link color (blue) requested
-$toc-color: $stanford-cardinal !default;
+$font-family-sans-serif: $sans;
+$body-color: $ink;
+$link-color: $cardinal;
 
 /*-- scss:rules --*/
 
-// Body copy reads as an article: serif text, generous measure, calm line height.
-body {
-  font-family: $sans;
-}
-
-/* Defensive accessibility: ensure page text and background cannot be overridden by theme or embeds */
-html, body {
-  color: $body-color !important;
-  background-color: $paper !important;
-}
-
-a, .nav-link, a:visited {
-  color: $link-color;
-}
-
-// Make active/selected nav links consistently blue across header, sidebar, and tabsets
-.nav-link.active,
-.navbar .nav-link.active,
-.sidebar nav[role="doc-toc"] ul > li > a.active,
-.panel-tabset .nav-link.active,
-a.active,
-a:active {
-  color: $link-active !important;
-  background: transparent !important;
-}
-
-// Hover matches the active-link blue, so hover and active states read consistently
-a:hover, .nav-link:hover, .panel-tabset .nav-link:hover {
-  color: $link-active;
-  text-decoration: underline;
-}
-
-main.content {
-  font-family: $serif;
-  font-size: 1.09rem;
-  line-height: 1.68;
-  color: $ink;
-}
-
-main.content p {
-  margin-bottom: 1.15em;
-}
-
-// Headings stay sans-serif for contrast against serif body copy, in house cardinal.
-h1, h2, h3, h4, .navbar-brand {
-  font-family: $sans;
-  color: $ink;
-  font-weight: 700;
-}
-
-// Matches the series pages: a serif title in ink, section headings in small
-// uppercase cardinal so a reader moving between the four sites sees one system.
-h1.title {
-  font-family: $serif;
-  font-size: clamp(2.1rem, 5vw, 3.1rem);
-  line-height: 1.12;
-  letter-spacing: -0.015em;
-  color: $ink;
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-
-.subtitle {
-  font-family: $serif;
-  font-style: italic;
-  color: $slate;
-}
-
-h2 {
-  margin: 2.6em 0 0.8em;
-  padding-top: 0;
-  border-top: 0;
-  font-size: 1.02rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: $stanford-cardinal;
-}
-
-strong { color: $stanford-cardinal; }
-
-// ---------------------------------------------------------------------
-// Figures: the images are the reporting, so give them real presentation
-// ---------------------------------------------------------------------
-.quarto-figure {
-  margin: 2.2em 0;
-}
-
-figure {
-  margin: 2.2em 0;
-}
-
-figure img,
-.quarto-figure img,
-.cell-output-display img,
-.quarto-figure svg,
-.cell-output-display svg,
-.quarto-figure .figure-html,
-.cell-output-display .figure-html {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  height: auto;
-  width: 100%;
-  border: 1px solid $hairline;
-  border-radius: 10px;
-  box-shadow: 0 1px 3px rgba(31, 41, 51, 0.06), 0 6px 20px rgba(31, 41, 51, 0.08);
-  background: $paper;
-  transition: box-shadow 0.15s ease;
-  object-fit: contain;
-}
-
-figure img:hover,
-.quarto-figure img:hover {
-  box-shadow: 0 2px 6px rgba(31, 41, 51, 0.09), 0 10px 28px rgba(31, 41, 51, 0.12);
-}
-
-figcaption,
-.figure-caption,
-.quarto-figure figcaption {
-  font-family: $sans;
-  font-size: 0.86rem;
-  color: $slate;
-  text-align: center;
-  margin-top: 0.7em;
-  padding: 0 1.5rem;
-  line-height: 1.5;
-}
-
-// Interactive (Plotly) figures get the same card treatment as static ones.
-.cell-output-display iframe,
-.cell-output-display > div > div {
-  border: 1px solid $hairline;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-// Ensure svg and embedded html blocks do not overflow or overlap neighbors
-.cell-output-display svg,
-.cell-output-display .figure-html,
-.quarto-figure svg,
-.quarto-figure .figure-html {
-  display: block;
-  width: 100% !important;
-  height: auto !important;
-}
-
-// ---------------------------------------------------------------------
-// Callouts, tables, tabs
-// ---------------------------------------------------------------------
-.callout {
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(31, 41, 51, 0.05);
-}
-
-.callout-note {
-  border-left-color: $stanford-cardinal;
-}
-
-.callout-note .callout-title {
-  color: $stanford-cardinal;
-  font-family: $sans;
-}
-
-table {
-  font-family: $sans;
-  font-size: 0.92rem;
-}
-
-.table > thead {
-  border-bottom: 2px solid $stanford-cardinal;
-}
-
-.table > thead th {
-  color: $stanford-cardinal;
-  font-weight: 700;
-}
-
-.table-striped > tbody > tr:nth-of-type(odd) > * {
-  background-color: rgba(140, 21, 21, 0.03);
-}
-
-.panel-tabset .nav-link.active {
-  color: $link-active !important;
-  border-bottom: 2px solid $link-active;
-  font-weight: 600;
-}
-
-// ---------------------------------------------------------------------
-// Navbar + footer
-// ---------------------------------------------------------------------
-.navbar {
-  border-bottom: 3px solid $stanford-cardinal;
-}
-
-.navbar-brand {
-  font-weight: 800;
-  letter-spacing: -0.01em;
-}
-
-// Bootstrap's default navbar-brand hover/focus color is white (meant for a dark navbar).
-// This site forces a white navbar background above, so without this override, hovering
-// or focusing the "The Price of Prestige" brand text turns it white-on-white and it
-// disappears. Pin it to the same cardinal color used elsewhere so it stays visible.
-.navbar-brand:hover,
-.navbar-brand:focus {
-  color: $stanford-cardinal !important;
-}
-
-#quarto-header .navbar {
-  background: $paper !important;
-}
-
-.footer,
-#quarto-footer {
-  border-top: 1px solid $hairline;
-  color: $slate;
-  font-family: $sans;
-  font-size: 0.85rem;
-}
-
-// TOC
-#TOC {
-  font-family: $sans;
-  font-size: 0.88rem;
-}
-
-.sidebar nav[role="doc-toc"] ul > li > a.active {
-  color: $link-active;
-  font-weight: 600;
-}
-
 /* ---------------------------------------------------------------------
-   Accessibility & figure/container fixes
-   - Enforce readable colors for small text (captions, footers)
-   - Make figure containers create a stacking context and avoid overlap
-   - Make interactive outputs (iframes/plotly) have a background & min-height
-   --------------------------------------------------------------------- */
+   1. Page frame
 
-/* Ensure small text like captions does not get overridden by embeds */
-figure .figure-caption,
-.quarto-figure figcaption,
-.footer,
-#quarto-footer,
-.code, .cell-output-display {
-  color: $slate !important;
-}
-
-/* Figure container: keep images and interactive outputs from overlapping
-   neighbors and ensure a predictable stacking context */
-.quarto-figure,
-figure {
-  position: relative;
-  z-index: 0;
-  display: block;
-  width: 100%;
-  max-width: 980px;
-  margin: 2.2em auto;
-}
-
-/* Interactive output container: give space and a background so text inside
-   embedded visualizations remains readable on top of the site background */
-.cell-output-display {
-  min-height: 220px;
-  background: $paper;
-  overflow: auto;
-  padding: 0.5rem;
-  border-radius: 10px;
-}
-
-.cell-output-display iframe,
-.cell-output-display > div > div {
-  background: $paper;
-  z-index: 1;
-}
-
-/* Small text contrast guard for accessibility */
-.small, .figure-caption, figcaption {
-  color: $slate !important;
-}
-
-/* Make sure any link in a caption is visible */
-.figure-caption a, figcaption a {
-  color: $stanford-cardinal !important;
-}
-
-/* ---------------------------------------------------------------------
-   Scrollbar: cardinal thumb on a transparent track, as on the other
-   Stanford Daily pages.
-   --------------------------------------------------------------------- */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: $stanford-cardinal transparent;
-}
-
-::-webkit-scrollbar {
-  width: 11px;
-  height: 11px;
-}
-
-::-webkit-scrollbar-track { background: transparent; }
-
-::-webkit-scrollbar-thumb {
-  background-color: $stanford-cardinal;
-  border: 3px solid transparent;
-  border-radius: 999px;
-  background-clip: content-box;
-}
-
-::-webkit-scrollbar-thumb:hover { background-color: $stanford-cardinal-dark; }
-::-webkit-scrollbar-corner { background: transparent; }
-
-/* ---------------------------------------------------------------------
-   Series bar and reference list, matching the three companion sites.
-   --------------------------------------------------------------------- */
-
-.series-bar {
-  border-bottom: 1px solid $hairline;
-  background: $paper;
-}
-
-.series-bar__inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px 24px;
-  width: min(100% - 48px, 1080px);
-  margin: 0 auto;
-  padding: 15px 0 13px;
-}
-
-.series-bar__label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: $stanford-cardinal;
-  text-decoration: none;
-}
-
-.series-bar__right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.series-bar__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  font-family: $sans;
-  font-size: 0.9rem;
-}
-
-.series-bar__links a {
-  color: $ink;
-  text-decoration: none;
-}
-
-.series-bar__links a:hover {
-  color: $stanford-cardinal;
-  text-decoration: underline;
-}
-
-.series-bar__links a[aria-current="page"] {
-  color: $stanford-cardinal;
-  font-weight: 600;
-}
-
-.series-bar__gh {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 0.88rem;
-  color: $slate;
-  text-decoration: none;
-}
-
-.series-bar__gh:hover { color: $stanford-cardinal; }
-.series-bar__gh svg { width: 17px; height: 17px; fill: currentColor; }
-
-@media (max-width: 720px) {
-  .series-bar__inner { width: min(100% - 32px, 1080px); padding: 12px 0 10px; }
-  .series-bar__links { gap: 12px; font-size: 0.85rem; }
-  .series-bar__gh span { display: none; }
-}
-
-.refs ol {
-  margin: 0;
-  padding-left: 1.3em;
-  font-family: $sans;
-  font-size: 0.94rem;
-  line-height: 1.6;
-  color: #3c3833;
-}
-
-.refs li { margin-bottom: 1.15em; }
-.refs li:last-child { margin-bottom: 0; }
-.refs li p { margin: 0.35em 0 0; color: $slate; }
-.refs a { overflow-wrap: anywhere; }
-
-/* ---------------------------------------------------------------------
-   Type scale shared with the companion sites.
-
-   The series pages set a 16px root and 17px body, so their rem sizes land
-   at 49.6px titles and 17.4px prose. The Quarto theme inherits a 17px root,
-   which made every rem-based size a step larger; pinning the root here makes
-   both sets of pages compute the same numbers.
+   assets/series.css styles the masthead, footer and shared components, and
+   defines the tokens used below. This file only maps Quarto's own markup
+   onto that system: a 16px root, a 1080px column, prose capped at the
+   series measure, and no Quarto chrome of its own.
    --------------------------------------------------------------------- */
 
 :root { --bs-root-font-size: 16px; }
 
-/* Bootstrap sizes :root from this variable, and the pseudo-class outranks a
-   plain html selector, so the variable -- not html -- has to carry the 16px. */
+/* Bootstrap sizes :root from this variable, and its :root selector outranks a
+   plain html rule, so the variable is what actually sets the root size. */
 html { font-size: 16px; }
 
 body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
   font-size: 17px;
   line-height: 1.6;
 }
 
-h1.title {
-  font-size: clamp(2.1rem, 5vw, 3.1rem);
-  line-height: 1.12;
-}
-
-h2 { font-size: 1.05rem; }
-
-#quarto-document-content p,
-#quarto-document-content li,
-#quarto-document-content dd {
-  font-family: $serif;
-  font-size: 1.09rem;
-  line-height: 1.72;
-}
-
-#quarto-document-content .callout p { font-size: 1rem; }
-
-/* --- Navbar: the same flat paper row as the series masthead --------- */
-.navbar {
-  border-bottom: 1px solid $hairline;
-  background: $paper !important;
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-.navbar .navbar-brand {
-  font-family: $serif;
-  font-size: 1.02rem;
-  color: $ink;
-}
-
-.navbar .nav-link {
-  font-size: 0.9rem;
-  color: $ink;
-}
-
-.navbar .nav-link.active {
-  color: $stanford-cardinal !important;
-  font-weight: 600;
-}
-
-/* --- Footer: one muted row, as on the other pages ------------------- */
-#quarto-footer {
-  font-size: 0.84rem;
-  color: $slate;
-}
-
-#quarto-footer .page-footer {
-  border-top: 1px solid $hairline;
-  padding-top: 18px;
-  padding-bottom: 24px;
-}
-
-/* ---------------------------------------------------------------------
-   Header and footer.
-
-   Quarto's default is a navbar pinned over the page (`body.nav-fixed`, a
-   `fixed-top headroom` header, and matching body padding), while the companion
-   sites scroll a plain masthead. The header is made static and the padding
-   removed so both behave the same. The footer is Quarto's own `footer.footer`
-   with footer-left/center/right, not `#quarto-footer`, so it is styled by the
-   class that actually exists.
-   --------------------------------------------------------------------- */
-
+/* Quarto draws a title block, navbar, sidebar and footer. The masthead and
+   footer partials replace all four, so the generated ones are removed. */
+#title-block-header,
 #quarto-header,
-#quarto-header.headroom,
-header.headroom {
-  position: static !important;
-  border-bottom: 0;
-  box-shadow: none !important;
+#quarto-sidebar,
+#quarto-margin-sidebar,
+.quarto-title-meta,
+footer.footer,
+.nav-footer {
+  display: none !important;
 }
 
 body.nav-fixed { padding-top: 0 !important; }
 
-footer.footer,
-.nav-footer {
-  background-color: $paper !important;
-  border-top: 1px solid $hairline;
-  color: $slate;
-  font-family: $sans;
+#quarto-content,
+#quarto-document-content {
+  width: min(100% - 48px, 1080px);
+  max-width: none;
+  margin-inline: auto;
+  padding: 0;
+}
+
+#quarto-document-content { padding: 56px 0 72px; }
+
+/* Body copy and anything block-shaped stops at the shared measure; headings
+   are free to run the full column, as they do on the companion sites. */
+#quarto-document-content > p,
+#quarto-document-content > ul,
+#quarto-document-content > ol,
+#quarto-document-content > blockquote,
+#quarto-document-content > figure,
+#quarto-document-content > table,
+#quarto-document-content > pre,
+#quarto-document-content > .cell,
+#quarto-document-content > .callout,
+#quarto-document-content > .quarto-figure {
+  max-width: var(--measure);
+}
+
+/* ---------------------------------------------------------------------
+   2. Type
+
+   The article title is written into each page's body so it can carry the
+   series kicker and byline; section headings are uppercase sans, which means
+   a level-1 section heading must not inherit the title treatment.
+   --------------------------------------------------------------------- */
+
+#quarto-document-content h1.article-title {
+  font-family: var(--serif);
+  font-size: clamp(2.1rem, 5vw, 3.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin: 0 0 16px;
+  color: var(--ink);
+}
+
+#quarto-document-content h1 {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cardinal);
+  border: 0;
+  padding: 0;
+  margin: 2.6em 0 0.8em;
+}
+
+#quarto-document-content h2 {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 0;
+  margin: 2em 0 0.7em;
+}
+
+#quarto-document-content h3 {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  margin: 1.8em 0 0.6em;
+}
+
+#quarto-document-content p,
+#quarto-document-content li,
+#quarto-document-content dd {
+  font-family: var(--serif);
+  font-size: 1.09rem;
+  line-height: 1.72;
+}
+
+#quarto-document-content > p { margin: 0 0 1.15em; }
+
+#quarto-document-content strong { color: inherit; font-weight: 700; }
+
+#quarto-document-content hr {
+  border: 0;
+  border-top: 1px solid var(--hairline);
+  margin: 2.4em 0;
+  max-width: var(--measure);
+}
+
+#quarto-document-content blockquote {
+  border-left: 3px solid var(--cardinal);
+  padding-left: 20px;
+  margin: 1.8em 0;
+  color: #3c3833;
+  font-style: italic;
+}
+
+/* ---------------------------------------------------------------------
+   3. Figures, tables, code, callouts
+   --------------------------------------------------------------------- */
+
+#quarto-document-content figure { margin: 34px 0; }
+
+#quarto-document-content figure img,
+#quarto-document-content .cell-output-display img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  background: var(--paper-raised);
+  box-shadow: var(--shadow);
+}
+
+#quarto-document-content figcaption,
+#quarto-document-content .figure-caption {
+  font-family: var(--sans);
   font-size: 0.84rem;
-  padding: 20px 0 26px;
+  color: var(--muted);
+  text-align: left;
+  padding-top: 10px;
+  line-height: 1.5;
 }
 
-footer.footer a,
-.nav-footer a {
-  color: $slate;
+#quarto-document-content .cell-output-display { max-width: var(--measure); }
+
+#quarto-document-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--sans);
+  font-size: 0.9rem;
 }
 
-footer.footer a:hover,
-.nav-footer a:hover {
-  color: $stanford-cardinal;
+#quarto-document-content th {
+  text-align: left;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--hairline);
+  padding: 10px 14px 8px 0;
 }
 
-.nav-footer .footer-left,
-.nav-footer .footer-center,
-.nav-footer .footer-right {
-  line-height: 1.6;
+#quarto-document-content td {
+  padding: 11px 14px 11px 0;
+  border-bottom: 1px solid var(--hairline);
+  vertical-align: top;
 }
+
+#quarto-document-content tbody tr:last-child td { border-bottom: 0; }
+
+#quarto-document-content pre {
+  background: #23201b;
+  color: #f5f1ea;
+  padding: 16px 18px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+#quarto-document-content code { font-size: 0.88em; }
+#quarto-document-content pre code { background: none; padding: 0; color: inherit; }
+
+#quarto-document-content .callout {
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--cardinal);
+  border-radius: 8px;
+  background: var(--paper-raised);
+}
+
+#quarto-document-content .callout .callout-title {
+  font-family: var(--sans);
+  color: var(--cardinal);
+}
+
+#quarto-document-content .callout p { font-size: 1rem; }
+
+/* ---------------------------------------------------------------------
+   4. Page links
+
+   Each page ends with the same row the other sites use to get between the
+   article, the notebook, the methods note and the reference list.
+   --------------------------------------------------------------------- */
+
+.page-links {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-top: 1px solid var(--hairline);
+  margin: 44px 0 0;
+  padding-top: 18px;
+  max-width: var(--measure);
+}
+
+.page-links p { font-family: var(--sans); font-size: 0.9rem; margin: 0; }
+.page-links a { color: var(--muted); }
+.page-links a:hover { color: var(--cardinal); }

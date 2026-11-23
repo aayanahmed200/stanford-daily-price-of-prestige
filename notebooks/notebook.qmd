@@ -2,12 +2,16 @@
 title: "The Price of Prestige — Analysis Notebook"
 author: "Stanford Daily Tech Bootcamp"
 date: 2026-08-04
-format: html
 execute:
   echo: true
   warning: false
   error: false
 ---
+
+<p class="kicker">Notebook</p>
+<h1 class="article-title">Analysis notebook</h1>
+<p class="standfirst">Step by step through the analysis behind the article</p>
+<p class="byline">Aayan Ahmed · Notebook · 2026</p>
 
 This notebook walks through the analysis behind *The Price of Prestige* step by
 step. It reads the **processed** data produced by the pipeline
@@ -231,3 +235,7 @@ Everything above is derived from processed files created by the pipeline:
 The article reads its numbers from `outputs/results.json`, so prose and data
 cannot drift apart. See [`README.md`](../README.md) and
 [`docs/methods.qmd`](../docs/methods.qmd) for details.
+
+::: {.page-links}
+On this site: [Article](../index.qmd) · [Notebook](../notebooks/notebook.qmd) · [Methods](../docs/methods.qmd) · [References](../docs/sources.qmd)
+:::

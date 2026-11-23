@@ -4,6 +4,11 @@ subtitle: "How every number in this project was produced"
 format: html
 ---
 
+<p class="kicker">Methods</p>
+<h1 class="article-title">Methods</h1>
+<p class="standfirst">How every number in this project was produced</p>
+<p class="byline">Aayan Ahmed · Documentation · 2026</p>
+
 This document is the audit trail for *The Price of Prestige*. It describes the
 data, the cleaning rules, the sample definitions, and the statistics — and why
 each decision was made. It is written to be checkable: every claim maps to a
@@ -166,3 +171,7 @@ Stanford tuition covers 2000-01 to 2024-25; Stanford total cost covers
 - The residual analysis is descriptive and in-sample.
 - Scorecard suppressed values are treated as missing; this affects a small
   number of peers for some variables.
+
+::: {.page-links}
+On this site: [Article](../index.qmd) · [Notebook](../notebooks/notebook.qmd) · [Methods](../docs/methods.qmd) · [References](../docs/sources.qmd)
+:::

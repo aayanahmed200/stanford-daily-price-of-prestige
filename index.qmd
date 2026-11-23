@@ -3,13 +3,12 @@ title: "The Price of Prestige"
 subtitle: "What a Stanford degree is actually worth"
 author: "Stanford Daily Tech Bootcamp"
 date: 2026-08-04
-format:
-  html:
-    toc: true
-    toc-depth: 2
-    number-sections: false
-    self-contained: true
 ---
+
+<p class="kicker">Data analysis</p>
+<h1 class="article-title">The Price of Prestige</h1>
+<p class="standfirst">What a Stanford degree is actually worth</p>
+<p class="byline">Aayan Ahmed · College Scorecard · 2026</p>
 
 ```{python}
 #| echo: false
@@ -243,3 +242,7 @@ the version that makes the rest of the system's failures most visible.
   estimate of the effect of attending Stanford.
 - Full methods: [`docs/methods.qmd`](docs/methods.qmd). Reproduce everything
   with `make pipeline` (see [`README.md`](README.md)).
+
+::: {.page-links}
+On this site: [Article](index.qmd) · [Notebook](notebooks/notebook.qmd) · [Methods](docs/methods.qmd) · [References](docs/sources.qmd)
+:::
