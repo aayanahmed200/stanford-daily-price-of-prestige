@@ -67,12 +67,25 @@ body.nav-fixed { padding-top: 0 !important; }
   padding: 0;
 }
 
+/* include-before-body places the masthead inside the content container, so the
+   container runs full width and the column is applied to its other children.
+   That lets the masthead span the page with its own .wrap inside, which is how
+   the companion sites draw it. */
 #quarto-document-content {
-  width: min(100% - 48px, 1080px);
+  width: 100%;
   max-width: none;
-  margin-inline: auto;
-  padding: 56px 0 72px;
+  margin: 0;
+  padding: 0 0 72px;
 }
+
+#quarto-document-content > :not(.masthead) {
+  width: min(100% - 48px, 1080px);
+  margin-inline: auto;
+}
+
+/* The masthead is full bleed, so the report's top padding moves to the article
+   head below it. */
+#quarto-document-content > .kicker { padding-top: 56px; }
 
 /* Body copy and anything block-shaped stops at the shared measure; headings,
    tables and the article head run the full column. Quarto wraps each level-1
@@ -235,6 +248,10 @@ body.nav-fixed { padding-top: 0 !important; }
 }
 
 #quarto-document-content .cell-output-display { max-width: var(--measure); }
+
+/* Chart tabs are Quarto-only, and their panel padding would inset a figure
+   from the column the rest of the page uses. */
+#quarto-document-content .tab-content { padding: 0; }
 
 #quarto-document-content table {
   width: 100%;
