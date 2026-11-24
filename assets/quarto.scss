@@ -68,19 +68,24 @@ body.nav-fixed { padding-top: 0 !important; }
 }
 
 /* include-before-body places the masthead inside the content container, so the
-   container runs full width and the column is applied to its other children.
-   That lets the masthead span the page with its own .wrap inside, which is how
-   the companion sites draw it. */
+   container is a one-column grid: the masthead spans the full page and
+   everything else sits in a centred column. The track is sized from the
+   viewport rather than a percentage so the side columns stay equal without
+   depending on the content's margins. */
 #quarto-document-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(100vw - 48px, 1080px) minmax(0, 1fr);
   width: 100%;
   max-width: none;
   margin: 0;
   padding: 0 0 72px;
 }
 
+#quarto-document-content > .masthead { grid-column: 1 / -1; }
+
 #quarto-document-content > :not(.masthead) {
-  width: min(100% - 48px, 1080px);
-  margin-inline: auto;
+  grid-column: 2;
+  min-width: 0;
 }
 
 /* The masthead is full bleed, so the report's top padding moves to the article
@@ -259,6 +264,14 @@ body.nav-fixed { padding-top: 0 !important; }
   font-family: var(--sans);
   font-size: 0.9rem;
   margin: 28px 0;
+}
+
+/* Quarto emits a bare <table>. The companion sites scroll a wide table inside
+   its column instead of letting it widen the page, so the same happens here. */
+#quarto-document-content section > table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
 }
 
 #quarto-document-content th {
