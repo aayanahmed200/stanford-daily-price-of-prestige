@@ -74,14 +74,26 @@ body.nav-fixed { padding-top: 0 !important; }
    depending on the content's margins. */
 #quarto-document-content {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) min(100vw - 48px, 1080px) minmax(0, 1fr);
+  /* The gutter lives in the padding and the middle track takes what is left,
+     up to the 1080px column: the same rule .wrap follows in series.css. */
+  grid-template-columns: minmax(0, 1fr) min(100%, 1080px) minmax(0, 1fr);
   width: 100%;
   max-width: none;
   margin: 0;
-  padding: 0 0 72px;
+  padding: 0 24px 72px;
 }
 
-#quarto-document-content > .masthead { grid-column: 1 / -1; }
+/* Pulled back over the gutter so the masthead's white bar and red rule reach
+   both edges of the page, as they do on the companion sites. */
+#quarto-document-content > .masthead {
+  grid-column: 1 / -1;
+  margin-inline: -24px;
+}
+
+@media (max-width: 620px) {
+  #quarto-document-content { padding-inline: 16px; }
+  #quarto-document-content > .masthead { margin-inline: -16px; }
+}
 
 #quarto-document-content > :not(.masthead) {
   grid-column: 2;
