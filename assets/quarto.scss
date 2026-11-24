@@ -54,28 +54,39 @@ footer.footer,
 
 body.nav-fixed { padding-top: 0 !important; }
 
-#quarto-content,
+/* Quarto lays the page out as a "page-columns" grid so it can place a TOC, a
+   sidebar and margin notes. This page has none of them, and the grid also
+   pulls the masthead and every section into a ~750px body column, so it is
+   switched off: the masthead goes full bleed and the content below it is one
+   1080px column, as on the companion sites. */
+#quarto-content {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
 #quarto-document-content {
   width: min(100% - 48px, 1080px);
   max-width: none;
   margin-inline: auto;
-  padding: 0;
+  padding: 56px 0 72px;
 }
 
-#quarto-document-content { padding: 56px 0 72px; }
-
-/* Body copy and anything block-shaped stops at the shared measure; headings
-   are free to run the full column, as they do on the companion sites. */
-#quarto-document-content > p,
-#quarto-document-content > ul,
-#quarto-document-content > ol,
-#quarto-document-content > blockquote,
-#quarto-document-content > figure,
-#quarto-document-content > table,
-#quarto-document-content > pre,
-#quarto-document-content > .cell,
-#quarto-document-content > .callout,
-#quarto-document-content > .quarto-figure {
+/* Body copy and anything block-shaped stops at the shared measure; headings,
+   tables and the article head run the full column. Quarto wraps each level-1
+   heading and its text in a <section>, so this matches descendants rather
+   than direct children. */
+#quarto-document-content p,
+#quarto-document-content ul,
+#quarto-document-content ol,
+#quarto-document-content blockquote,
+#quarto-document-content figure,
+#quarto-document-content pre,
+#quarto-document-content .cell,
+#quarto-document-content .callout,
+#quarto-document-content .quarto-figure {
   max-width: var(--measure);
 }
 
@@ -92,6 +103,7 @@ body.nav-fixed { padding-top: 0 !important; }
   font-size: clamp(2.1rem, 5vw, 3.1rem);
   line-height: 1.1;
   letter-spacing: -0.015em;
+  text-transform: none; /* the h1 rule below uppercases section headings */
   margin: 0 0 16px;
   color: var(--ink);
 }
@@ -132,7 +144,51 @@ body.nav-fixed { padding-top: 0 !important; }
   line-height: 1.72;
 }
 
-#quarto-document-content > p { margin: 0 0 1.15em; }
+#quarto-document-content p { margin: 0 0 1.15em; }
+
+/* The article head is part of the page body, so the paragraph rule above also
+   matches its kicker, standfirst and byline. These restore the values
+   assets/series.css gives those, which is what the companion sites render. */
+#quarto-document-content .kicker {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cardinal);
+  margin: 0 0 14px;
+  max-width: none;
+}
+
+#quarto-document-content .standfirst {
+  font-family: var(--serif);
+  font-size: clamp(1.08rem, 2.2vw, 1.3rem);
+  line-height: 1.5;
+  color: #3c3833;
+  margin: 0 0 20px;
+}
+
+#quarto-document-content .byline {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
+  border-top: 1px solid var(--hairline);
+  padding-top: 14px;
+  margin: 0 0 8px;
+}
+
+/* The opening paragraph carries the series drop cap, as the first paragraph of
+   .prose does on the companion sites. */
+#quarto-document-content section.level1:first-of-type > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.86;
+  padding: 0.06em 0.1em 0 0;
+  color: var(--cardinal);
+  font-weight: 600;
+}
 
 #quarto-document-content strong { color: inherit; font-weight: 700; }
 
@@ -185,6 +241,7 @@ body.nav-fixed { padding-top: 0 !important; }
   border-collapse: collapse;
   font-family: var(--sans);
   font-size: 0.9rem;
+  margin: 28px 0;
 }
 
 #quarto-document-content th {
