@@ -258,6 +258,17 @@ body.nav-fixed { padding-top: 0 !important; }
    from the column the rest of the page uses. */
 #quarto-document-content .tab-content { padding: 0; }
 
+/* --measure is 68ch, so it resolves in the element's own font. Body copy is
+   serif at 1.09rem while these default to sans at 17px, which left the callout
+   card and the charts about 30px short of the text column. The prose font
+   context lines all three up; inner text keeps its own sizes. */
+#quarto-document-content .callout,
+#quarto-document-content .quarto-figure,
+#quarto-document-content figure {
+  font-family: var(--serif);
+  font-size: 1.09rem;
+}
+
 #quarto-document-content table {
   width: 100%;
   border-collapse: collapse;
