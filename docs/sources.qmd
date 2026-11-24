@@ -1,6 +1,7 @@
 ---
 title: "References"
 subtitle: "Every dataset and publication behind this project"
+description: "Every dataset and publication behind The Price of Prestige, with the file version and release date each figure is drawn from."
 format: html
 ---
 

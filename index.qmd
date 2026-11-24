@@ -1,6 +1,7 @@
 ---
 title: "The Price of Prestige"
 subtitle: "What a Stanford degree is actually worth"
+description: "The sticker price of a Stanford degree against the average net price after aid, a 25-year tuition trend, and earnings ten years out, from the College Scorecard."
 author: "Stanford Daily Tech Bootcamp"
 date: 2026-08-04
 ---

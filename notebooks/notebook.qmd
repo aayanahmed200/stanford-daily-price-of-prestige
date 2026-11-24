@@ -1,5 +1,6 @@
 ---
 title: "The Price of Prestige — Analysis Notebook"
+description: "The analysis notebook behind The Price of Prestige, run end to end: each step of the cleaning, the statistics and the figures."
 author: "Stanford Daily Tech Bootcamp"
 date: 2026-08-04
 execute:

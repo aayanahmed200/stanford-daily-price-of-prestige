@@ -21,6 +21,9 @@ format:
     # Quarto's markup onto it. No navbar, sidebar or TOC, because the other
     # three pages in the series have none.
     toc: false
+    # Adds <link rel="canonical"> to every page, built from site-url above,
+    # the way the three static sites declare it by hand.
+    canonical-url: true
     css: assets/series.css
     code-fold: false
     highlight-style: arrow

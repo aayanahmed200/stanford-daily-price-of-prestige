@@ -1,6 +1,7 @@
 ---
 title: "Methods"
 subtitle: "How every number in this project was produced"
+description: "The audit trail for The Price of Prestige: data, cleaning rules, sample definitions and statistics, written so every number in the article can be checked."
 format: html
 ---
 
