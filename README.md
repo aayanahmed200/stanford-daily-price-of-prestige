@@ -14,7 +14,7 @@ The project compares Stanford's published sticker price with estimated net price
 
 The article is generated from committed analysis outputs, so its figures and reported values can be traced back to the data pipeline rather than maintained as unrelated hard-coded numbers.
 
-## Key findings covered
+## Highlights
 
 - Published sticker price and average net price, with net price broken down by family income.
 - Median earnings ten years after entry and median student debt.
