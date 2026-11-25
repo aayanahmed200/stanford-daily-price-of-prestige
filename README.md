@@ -37,21 +37,9 @@ GitHub Actions runs the Python tests and Ruff checks, renders the site, and publ
 - `_quarto.yml` and `assets/` — Quarto site configuration and shared series styling.
 - `tests/` — pytest coverage for preprocessing, statistics, validation, and helpers.
 
-## Run locally
-
-1. Install the Python dependencies with `python -m pip install -r requirements.txt`.
-2. Install the [Quarto CLI](https://quarto.org/docs/get-started/).
-3. Render the article from the repository root:
-
-```bash
-quarto render index.qmd
-```
-
-The committed processed data and output artifacts allow the article to be rendered without repeating every source-data download.
-
 ## Status and limitations
 
-The results depend on the source datasets, reporting periods, institutional definitions, and analysis choices used in the project. The regression is observational: it does not show that tuition, selectivity, Pell share, or family income causes differences in graduate earnings. Source data remains subject to the terms of its providers.
+The results depend on the source datasets, reporting periods, institutional definitions, and analysis choices used in the project. The regression is observational: it does not show that tuition, selectivity, Pell share, or family income causes differences in graduate earnings. Source data remains subject to the terms of its providers. The committed processed data and output artifacts mean a fresh render does not have to repeat every source-data download.
 
 ## License
 
